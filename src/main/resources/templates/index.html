@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELECTRO ZONE 플랫폼</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <!-- 상단 링크 영역 -->
+    <div th:replace="~{fragments/top-links.html}"></div> <!-- 상단 링크 포함 -->
+
+    <!-- 헤더 영역 -->
+    <header th:replace="~{fragments/header.html}"></header> <!-- 헤더 포함 -->
+
+    <!-- 광고 배너 -->
+    <div th:replace="~{fragments/ad-banner.html}"></div> <!-- 광고 배너 포함 -->
+
+    <!-- 페이지별 콘텐츠 -->
+    <section>
+        <h2>추천 상품</h2>
+        <div class="product-list">
+            <div class="product-item">
+                <img src="https://via.placeholder.com/200" alt="상품 1">
+                <p>상품 1</p>
+                <span>₩50,000</span>
+            </div>
+            <div class="product-item">
+                <img src="https://via.placeholder.com/200" alt="상품 2">
+                <p>상품 2</p>
+                <span>₩70,000</span>
+            </div>
+            <div class="product-item">
+                <img src="https://via.placeholder.com/200" alt="상품 3">
+                <p>상품 3</p>
+                <span>₩30,000</span>
+            </div>
+            <div class="product-item">
+                <img src="https://via.placeholder.com/200" alt="상품 4">
+                <p>상품 4</p>
+                <span>₩80,000</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <h2>인기 카테고리</h2>
+        <div class="category-list">
+            <div class="category-item">전자제품</div>
+            <div class="category-item">패션</div>
+            <div class="category-item">가전</div>
+            <div class="category-item">도서</div>
+            <div class="category-item">가구</div>
+        </div>
+    </section>
+
+    <!-- 푸터 영역 -->
+    <footer th:replace="~{fragments/footer.html}"></footer> <!-- 푸터 포함 -->
+</div>
+</body>
+</html>

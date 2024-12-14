@@ -1,0 +1,302 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+    padding: 0 20px 20px 20px;
+}
+
+/* 상단 링크 영역 */
+.top-links {
+    background-color: transparent; /* 배경색 없음 */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end; /* 링크를 오른쪽으로 정렬 */
+    gap: 15px;
+}
+
+.top-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.top-links a:hover {
+    text-decoration: underline;
+}
+
+/* 헤더 영역 */
+header {
+    background-color: #1e2a3a;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between; /* 항목들 사이에 공간을 고르게 분배 */
+    align-items: center;
+    width: 100%;
+}
+
+header .logo {
+    flex: 0 1 auto;  /* 로고는 자동 크기, 축소 가능 */
+    text-align: left; /* 로고 왼쪽 정렬 */
+}
+
+header .logo h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+header .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    flex: 1;  /* 검색바는 나머지 공간을 차지 */
+    max-width: 400px;  /* 최대 너비 설정 */
+}
+
+header .search-bar input {
+    padding: 8px;
+    width: 100%;  /* 검색창이 가용 공간을 모두 차지하도록 */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+header .search-bar button {
+    padding: 8px 15px;
+    background-color: #91acd8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+}
+
+
+
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    justify-content: space-between; /* 검색창 내 요소 간 간격을 조정 */
+    width: 100%; /* 검색창이 전체 너비를 차지하도록 */
+    margin: 10px 0;
+}
+
+/* input 수정 */
+.search-bar input {
+    padding: 8px;
+    flex-grow: 1; /* 남는 공간을 모두 차지하도록 */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* button 수정 */
+.search-bar button {
+    padding: 8px 15px;
+    background-color: #91acd8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ad-banner img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    margin-bottom: 30px;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.product-list {
+    display: flex;
+    gap: 0; /* 상품 간 여백 제거 */
+    flex-wrap: wrap;
+    justify-content: flex-start; /* 상품을 왼쪽 정렬 */
+}
+
+.product-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 200px;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.product-item:hover {
+    transform: scale(1.05);
+}
+
+.product-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-item p {
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.product-item span {
+    color: #91acd8;
+    font-size: 16px;
+}
+
+.categories {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.category-list {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* 카테고리 항목을 왼쪽 정렬 */
+}
+
+.category-item {
+    background-color: #91acd8;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.category-item:hover, .search-bar button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #1e2a3a;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+footer .footer-content p {
+    font-size: 14px;
+}
+
+/* 미디어 쿼리: 화면 크기가 768px 이하일 때 */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center; /* 모바일에서는 중앙 정렬 */
+        gap: 10px;
+    }
+
+    .search-bar {
+        justify-content: center; /* 검색바를 중앙으로 배치 */
+        width: 100%; /* 검색바가 전체 너비를 차지하도록 */
+        margin-top: 10px;
+        position: relative;
+        left: 0px;
+    }
+
+    .search-bar input {
+        width: 100%; /* 모바일에서는 100% 너비로 설정 */
+    }
+
+    .search-bar button {
+        width: auto; /* 버튼 너비를 자동으로 설정하여 입력창에 맞게 조정 */
+    }
+
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .category-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .product-item {
+        width: 100%; /* 모바일에서는 100% 너비로 설정 */
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
+
+/* 미디어 쿼리: 화면 크기가 480px 이하일 때 (작은 모바일 화면) */
+@media (max-width: 480px) {
+    header .logo h1 {
+        font-size: 20px;
+    }
+
+    .product-list {
+        display: grid;
+        grid-template-columns: 1fr; /* 모바일에서는 한 열로 표시 */
+        gap: 15px;
+    }
+
+    .category-list {
+        grid-template-columns: 1fr; /* 모바일에서는 한 열로 표시 */
+    }
+
+    footer .footer-content p {
+        font-size: 12px;
+    }
+}
