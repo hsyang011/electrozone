@@ -28,7 +28,7 @@ public class WebSecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth // 인증, 인가 설정
                         .requestMatchers("/css/**", "/js/**").permitAll()
-                        .requestMatchers("/", "login", "/signup").permitAll()
+                        .requestMatchers("/", "/login", "/signup").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin // 폼 기반 로그인 설정
                         .loginPage("/login")
