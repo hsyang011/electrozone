@@ -56,6 +56,11 @@ header .logo {
     text-align: left; /* 로고 왼쪽 정렬 */
 }
 
+header .logo a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
 header .logo h1 {
     font-size: 24px;
     margin: 0;
@@ -79,7 +84,7 @@ header .search-bar input {
 
 header .search-bar button {
     padding: 8px 15px;
-    background-color: #91acd8;
+    background-color: #5f87c2;
     color: white;
     border: none;
     border-radius: 5px;
@@ -91,8 +96,9 @@ header .search-bar button {
     white-space: nowrap;
 }
 
-
-
+header .search-bar button:hover {
+    background-color: #3d6ca3;
+}
 
 nav ul {
     list-style: none;
@@ -111,7 +117,6 @@ nav ul li a {
     text-decoration: none;
     font-weight: bold;
 }
-
 
 .search-bar {
     display: flex;
@@ -134,7 +139,7 @@ nav ul li a {
 /* button 수정 */
 .search-bar button {
     padding: 8px 15px;
-    background-color: #91acd8;
+    background-color: #5f87c2;
     color: white;
     border: none;
     border-radius: 5px;
@@ -161,73 +166,11 @@ h2 {
     margin-bottom: 20px;
 }
 
-.product-list {
-    display: flex;
-    gap: 0; /* 상품 간 여백 제거 */
-    flex-wrap: wrap;
-    justify-content: flex-start; /* 상품을 왼쪽 정렬 */
-}
-
-.product-item {
-    background-color: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 200px;
-    transition: transform 0.2s ease-in-out;
-    cursor: pointer;
-}
-
-.product-item:hover {
-    transform: scale(1.05);
-}
-
-.product-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-.product-item p {
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.product-item span {
-    color: #91acd8;
-    font-size: 16px;
-}
-
-.categories {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.category-list {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: flex-start; /* 카테고리 항목을 왼쪽 정렬 */
-}
-
-.category-item {
-    background-color: #91acd8;
-    padding: 10px 20px;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.category-item:hover, .search-bar button:hover {
-    background-color: #0056b3;
-}
-
 footer {
     background-color: #1e2a3a;
     color: white;
     padding: 10px 0;
+    margin: 60px 0 0 0;
     text-align: center;
 }
 
