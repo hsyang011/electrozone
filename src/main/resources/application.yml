@@ -17,6 +17,10 @@ spring:
         format_sql: true
         use_sql_comments: true
 
+jwt:
+  issuer: "ElectroZone"
+  secret_key: "Nyo0hyoAD7bDNw8J4pjiUmH4WVEA+52vqTMh87lX7kGXgBGWukCf5bG8ACENxYGh4+VnxGNYNANaX9xA5Uo0tQ=="
+
 # 로그인 인증 정보 디버깅
 #logging:
 #  level:
