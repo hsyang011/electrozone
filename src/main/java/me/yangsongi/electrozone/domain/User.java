@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private Long userId;  // 사용자 고유 ID입니다.
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "nickname", nullable = false)
     private String nickname;  // 사용자 이름입니다.
 
     @Column(name = "email", nullable = false)
