@@ -20,7 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 public class WebSecurityConfig {
 
-    private final UserDetailService userService;
+    private final UserDetailService userDetailService;
 
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
     @Bean
@@ -35,7 +35,7 @@ public class WebSecurityConfig {
                         .loginPage("/login")
                         .defaultSuccessUrl("/"))
                 .logout(logout -> logout // 로그아웃 설정
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/")
                         .invalidateHttpSession(true))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
@@ -45,7 +45,7 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity httpSecurity, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailService userDetailService) throws Exception {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userService); // 사용자 정보 서비스 설정
+        authProvider.setUserDetailsService(userDetailService); // 사용자 정보 서비스 설정
         authProvider.setPasswordEncoder(bCryptPasswordEncoder);
 
         return new ProviderManager(authProvider);
