@@ -28,7 +28,7 @@
 
 ## 🛠️ 사용 기술
 
-- **Backend**: Java 17, Spring Boot 3.x, Spring Security, JPA
+- **Backend**: Java 21, Spring Boot 3.4.0, Spring Security, JPA
 - **Frontend**: HTML5, CSS3, Thymeleaf
 - **Database**: MySQL 8.0
 - **DevOps**: Docker, Docker Compose
@@ -68,34 +68,19 @@ cd electrozone
 ```
 
 ### 2. Docker 환경 구성
-docker-compose.yml 파일 확인 및 설정 후 실행
+- docker-compose.yml 파일 확인 및 설정 후 실행
 ```bash
 docker-compose up -d
 ```
 
 ### 3. 애플리케이션 실행
-로컬 실행: IntelliJ에서 애플리케이션 실행
-서버 접속: http://localhost:8080
+- 로컬 실행: IntelliJ에서 애플리케이션 실행
+- 서버 접속: http://localhost:8080
 
 ---
 
 ## ⚠️ 트러블슈팅
 
-### 1. Authentication이 항상 null이 아닌 문제
-문제점: Thymeleaf에서 authentication 객체를 사용하여 로그인/회원가입 버튼을 숨김 처리하고, 로그아웃 버튼을 표시하려 했으나, authentication이 익명 사용자(anonymousUser)로 인식되어 항상 null이 아니었습니다.
-해결방법: Spring Security 설정에서 다음과 같이 .permitAll() 설정 추가 후 해결
-```java
-http.authorizeRequests()
-    .antMatchers("/", "/login", "/signup").permitAll()
-    .anyRequest().authenticated();
-```
-
-### 2. JWT 토큰 관련 문제
-문제점: JWT 인증 후 특정 요청에서 리다이렉트 URL이 /articles?continue로 잘못 설정되었습니다.
-원인: 복사한 프로젝트의 설정 파일에 남아 있던 리다이렉트 URL이 초기화되지 않음.
-해결방법: 리다이렉트 URL을 다음과 같이 수정
-```properties
-spring.security.oauth2.client.registration.kakao.redirect-uri=http://localhost:8080/login/oauth2/code/kakao
 ```
 
 ---
