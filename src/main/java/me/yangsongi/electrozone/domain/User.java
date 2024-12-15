@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,8 +38,9 @@ public class User implements UserDetails {
     @Column(name = "phone")
     private String phone;  // 사용자 전화번호입니다.
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
-    private String role;  // 사용자 역할입니다.
+    private Role role;  // 사용자 역할입니다.
 
     @CreatedDate
     @Column(name = "created_at")
@@ -48,11 +51,12 @@ public class User implements UserDetails {
     private LocalDateTime updatedAt;  // 사용자 수정 시간입니다.
 
     @Builder
-    public User(String email, String nickname, String password, String phone) {
+    public User(String email, String nickname, String password, String phone, Role role) {
         this.email = email;
         this.nickname = nickname;
         this.password = password;
         this.phone = phone;
+        this.role = role;
     }
 
     // 권한 반환

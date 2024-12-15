@@ -23,6 +23,7 @@
     <section class="form-container">
         <h2>로그인</h2>
         <form action="/login" method="POST">
+            <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
             <div class="form-group">
                 <label for="email">이메일</label>
                 <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
@@ -35,6 +36,11 @@
 
             <button type="submit" class="submit-btn">로그인</button>
         </form>
+
+        <div class="link-container">
+            <a href="/find-user" class="left-link">아이디/비밀번호 찾기</a>
+            <a href="/signup" class="right-link">회원가입</a>
+        </div>
     </section>
     <!-- 로그인 폼 끝 -->
 

@@ -63,3 +63,31 @@ input:focus {
 .submit-btn:hover {
     background-color: #3d6ca3; /* 호버 색상 */
 }
+
+/* 링크 컨테이너 스타일 */
+.link-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* 좌측 링크 */
+.link-container .left-link {
+    color: gray;
+    text-align: left;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* 우측 링크 */
+.link-container .right-link {
+    color: gray;
+    text-align: right;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* 링크 호버 스타일 */
+.link-container a:hover {
+    text-decoration: underline;
+}
