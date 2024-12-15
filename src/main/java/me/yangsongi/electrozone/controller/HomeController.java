@@ -1,6 +1,5 @@
 package me.yangsongi.electrozone.controller;
 
-import me.yangsongi.electrozone.domain.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
