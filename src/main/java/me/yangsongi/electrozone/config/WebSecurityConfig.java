@@ -1,4 +1,4 @@
-package me.yangsongi.electrozone.security;
+package me.yangsongi.electrozone.config;
 
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.service.UserDetailService;
