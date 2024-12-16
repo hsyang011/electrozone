@@ -6,7 +6,7 @@ function login(event) {
         method: 'POST',
         body: new FormData(form), // 폼 데이터를 보내는 방식
     }).then(response => {
-        if (response.ok) { // 200-299 상태 코드 범위
+        if (response.status === 200) { // 200-299 상태 코드 범위
             alert('로그인에 성공하였습니다!');
             location.href = '/';
         } else if (response.status === 401) {
@@ -36,7 +36,7 @@ function signup(event) {
         method: 'POST',
         body: new FormData(form),  // 폼 데이터를 보내는 방식
     }).then(response => {
-        if (response.ok) {  // 201 Created 포함된 상태 코드 확인
+        if (response.status === 201) {  // 201 Created 포함된 상태 코드 확인
             alert('회원가입에 성공하였습니다!');
             location.href = '/login';  // 로그인 페이지로 리디렉션
         } else if (response.status === 400) {
