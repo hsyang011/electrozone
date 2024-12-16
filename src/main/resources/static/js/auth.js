@@ -15,7 +15,7 @@ function login(event) {
             alert('서버 오류가 발생했습니다. 나중에 다시 시도해주세요.');
         }
     }).catch(error => {
-        alert('네트워크 오류: ' + error.message);  // 네트워크 오류에 대한 메시지 처리
+        alert('로그인 오류 발생: ' + error.message);  // 네트워크 오류에 대한 메시지 처리
     });
 }
 
@@ -45,7 +45,21 @@ function signup(event) {
             alert('서버 오류가 발생했습니다. 나중에 다시 시도해주세요.');
         }
     }).catch(error => {
-        alert('네트워크 오류: ' + error.message);
+        alert('회원가입 오류 발생: ' + error.message);
     });
 }
 
+function logout() {
+    fetch('/logout', {
+        method: 'GET', // 로그아웃은 GET 방식으로 보내기
+    }).then(response => {
+        if (response.status === 200) {
+            alert('로그아웃 되었습니다.');
+            location.href = '/';  // 로그아웃 후 홈으로 리디렉션
+        } else {
+            alert('로그아웃 중 오류가 발생했습니다.');
+        }
+    }).catch(error => {
+        alert('로그아웃 중 오류 발생: ' + error.message);
+    });
+}

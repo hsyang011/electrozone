@@ -41,7 +41,6 @@ public class WebSecurityConfig {
                         }))
 //                        .defaultSuccessUrl("/"))
                 .logout(logout -> logout // 로그아웃 설정
-                        .logoutSuccessUrl("/")
                         .invalidateHttpSession(true))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
