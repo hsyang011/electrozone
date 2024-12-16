@@ -5,6 +5,7 @@ function login(event) {
     fetch(form.action, {
         method: 'POST',
         body: new FormData(form), // 폼 데이터를 보내는 방식
+        credentials: 'same-origin'  // Same-origin policy를 따르기
     }).then(response => {
         if (response.status === 200) { // 200-299 상태 코드 범위
             alert('로그인에 성공하였습니다!');
@@ -51,7 +52,7 @@ function signup(event) {
 
 function logout() {
     fetch('/logout', {
-        method: 'POST', // 로그아웃은 POST 방식으로 보내기
+        method: 'GET', // 로그아웃은 POST 방식으로 보내기
     }).then(response => {
         if (response.ok) {
             alert('로그아웃 되었습니다.');

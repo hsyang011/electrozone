@@ -23,7 +23,7 @@ public class UserService {
         String nickname = request.getNickname();
         String phone = request.getPhone();
 
-                // 이메일 중복 확인
+        // 이메일 중복 확인
         Optional<User> checkEmail = userRepository.findByEmail(email);
         if (checkEmail.isPresent()) {
             throw new IllegalArgumentException("중복된 이메일입니다.");
