@@ -16,18 +16,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserApiController {
     
     private final UserService userService;
-    
+
+    // 회원가입 처리
     @PostMapping("/signup")
     public String signup(AddUserRequest request) {
         userService.save(request); // 회원가입 메소드 호출
         return "redirect:/login"; // 회원가입이 완료된 이후에 로그인 페이지로 이동
     }
 
+    // 로그아웃 처리
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
 
         return "redirect:/";
     }
+
+
     
 }

@@ -23,7 +23,7 @@
     <!-- 로그인 폼 시작 -->
     <section class="form-container">
         <h2>로그인</h2>
-        <form action="/login" method="POST">
+        <form action="/login" method="POST" onsubmit="login(event);">
             <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
             <div class="form-group">
                 <label for="username">이메일</label>
@@ -48,5 +48,7 @@
     <!-- 푸터 영역 -->
     <footer th:replace="~{fragments/footer.html}"></footer> <!-- 푸터 포함 -->
 </div>
+
+<script src="/js/auth.js"></script>
 </body>
 </html>

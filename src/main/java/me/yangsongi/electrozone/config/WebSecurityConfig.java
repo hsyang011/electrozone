@@ -1,5 +1,6 @@
 package me.yangsongi.electrozone.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.service.UserDetailService;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +34,12 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin // 폼 기반 로그인 설정
                         .loginPage("/login")
-                        .defaultSuccessUrl("/"))
+                        .successHandler((request, response, authentication) -> {
+                            // 로그인 성공 후 자바스크립트에서 처리할 수 있도록 응답을 전송
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            response.getWriter().write("로그인 성공");  // 응답으로 메시지 전송
+                        }))
+//                        .defaultSuccessUrl("/"))
                 .logout(logout -> logout // 로그아웃 설정
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true))
