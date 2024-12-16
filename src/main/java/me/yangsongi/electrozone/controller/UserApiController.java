@@ -33,17 +33,5 @@ public class UserApiController {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return ResponseEntity.status(HttpStatus.OK).build(); // 200 OK 상태 코드 반환
     }
-
-    @GetMapping("/login/oauth2/code/google")
-    public String googleLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
-//        String token = userService.googleLogin(code);
-        return null;
-    }
-
-    @GetMapping("/login/oauth2/code/kakao")
-    public String kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
-//        String token = userService.kakaoLogin(code);
-        return null;
-    }
     
 }
