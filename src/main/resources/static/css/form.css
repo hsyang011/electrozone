@@ -91,3 +91,35 @@ input:focus {
 .link-container a:hover {
     text-decoration: underline;
 }
+
+/* OAuth 버튼 스타일 */
+.oauth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.oauth-btn:hover {
+    opacity: 0.9;
+}
+
+/* 카카오 로그인 버튼 스타일 */
+.kakao-btn {
+    background-color: #FEE500; /* 카카오 고유 색 */
+}
+
+/* 구글 로그인 버튼 스타일 */
+.google-btn {
+    background-color: #4285F4; /* 구글 고유 색 */
+}
