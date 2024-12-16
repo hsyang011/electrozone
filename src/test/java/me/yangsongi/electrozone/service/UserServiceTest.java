@@ -4,17 +4,18 @@ import me.yangsongi.electrozone.domain.Role;
 import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.dto.AddUserRequest;
 import me.yangsongi.electrozone.repository.UserRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
-@Transactional
+@ActiveProfiles("test")  // application-test.yml 활성화
 public class UserServiceTest {
 
     @Autowired
@@ -22,6 +23,12 @@ public class UserServiceTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @AfterEach
+    void cleanUp() {
+        // 테스트 종료 후 데이터 삭제
+        userRepository.deleteAll();
+    }
 
     // save() 검증 테스트
     @DisplayName("save() : 유저 정보를 저장하고, 중복 이메일 및 닉네임을 검증한다")
