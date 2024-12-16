@@ -27,7 +27,6 @@ spring:
             scope:
               - email
               - profile
-              - name
 
 jwt:
   issuer: "ELECTRO ZONE"

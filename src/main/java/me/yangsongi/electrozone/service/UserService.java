@@ -15,9 +15,10 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder encoder;
 
     public Long save(AddUserRequest request) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
         String email = request.getEmail();
         String password = encoder.encode(request.getPassword());
         String nickname = request.getNickname();
@@ -49,6 +50,11 @@ public class UserService {
 
     public User findById(Long userId) {
         return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
 

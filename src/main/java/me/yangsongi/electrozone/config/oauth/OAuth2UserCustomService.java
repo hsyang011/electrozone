@@ -1,8 +1,10 @@
 package me.yangsongi.electrozone.config.oauth;
 
 import lombok.RequiredArgsConstructor;
+import me.yangsongi.electrozone.domain.Role;
 import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -30,6 +32,8 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 
     // 유저가 있으면 업데이트, 없으면 유저 생성
     private User saveOrUpdate(OAuth2User oAuth2User, String provider) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
         Map<String, Object> attributes = oAuth2User.getAttributes();
         String email = (String)attributes.get("email");
         String name = (String)attributes.get("name");
@@ -42,7 +46,9 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
                     // 유저가 없으면 새로운 유저 생성
                     User.UserBuilder userBuilder = User.builder()
                             .email(email)
-                            .nickname(name);
+                            .nickname(name)
+                            .role(Role.USER)
+                            .password(generateRandomPassword());
                     addProviderIdToBuilder(userBuilder, provider, attributes);
                     return userBuilder.build();
                 });
@@ -54,11 +60,11 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
     private void updateProviderId(User entity, String provider, Map<String, Object> attributes) {
         switch (provider) {
             case "kakao":
-                Long kakaoId = (Long) attributes.get("id");
+                String kakaoId = (String) attributes.get("id");
                 entity.kakaoIdUpdate(kakaoId);
                 break;
             case "google":
-                Long googleId = (Long) attributes.get("id");
+                String googleId = (String) attributes.get("sub");
                 entity.googleIdUpdate(googleId);
                 break;
         }
@@ -68,14 +74,23 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
     private void addProviderIdToBuilder(User.UserBuilder userBuilder, String provider, Map<String, Object> attributes) {
         switch (provider) {
             case "kakao":
-                Long kakaoId = (Long) attributes.get("id");
+                String kakaoId = (String) attributes.get("id");
                 userBuilder.kakaoId(kakaoId);
                 break;
             case "google":
-                Long googleId = (Long) attributes.get("id");
+                String googleId = (String) attributes.get("sub");
                 userBuilder.googleId(googleId);
                 break;
         }
     }
+
+    // 랜덤 비밀번호 생성 메소드
+    private String generateRandomPassword() {
+        // UUID를 사용해 랜덤 문자열 생성 (길이 12)
+        String randomPassword = java.util.UUID.randomUUID().toString().substring(0, 12);
+        // 암호화 후 반환
+        return new BCryptPasswordEncoder().encode(randomPassword);
+    }
+
 
 }

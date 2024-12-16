@@ -53,18 +53,18 @@ public class User implements UserDetails {
 
     // OAuth2 연동 정보
     @Column(name = "kakao_id")
-    private Long kakaoId;
+    private String kakaoId;
 
     @Column(name = "google_id")
-    private Long googleId;
+    private String googleId;
 
     // 기존 정보에 OAuth2 연동 추가
-    public User kakaoIdUpdate(Long kakaoId) {
+    public User kakaoIdUpdate(String kakaoId) {
         this.kakaoId = kakaoId;
         return this;
     }
 
-    public User googleIdUpdate(Long googleId) {
+    public User googleIdUpdate(String googleId) {
         this.googleId = googleId;
         return this;
     }
