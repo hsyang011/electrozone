@@ -52,6 +52,13 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;  // 사용자 수정 시간입니다.
 
+    // OAuth2 연동 정보
+    @Column(name = "oauth_provider")
+    private String oauthProvider; // Google, Kakao 등
+
+    @Column(name = "oauth_provider_id")
+    private String oauthProviderId; // 제공자 발급 ID
+
     @Builder
     public User(String email, String nickname, String password, String phone, Role role) {
         this.email = email;
@@ -59,6 +66,12 @@ public class User implements UserDetails {
         this.password = password;
         this.phone = phone;
         this.role = role;
+    }
+
+    // 기존 정보에 OAuth2 연동 추가
+    public void linkOAuth2Account(String oauthProvider, String oauthProviderId) {
+        this.oauthProvider = oauthProvider;
+        this.oauthProviderId = oauthProviderId;
     }
 
     // 권한 반환
