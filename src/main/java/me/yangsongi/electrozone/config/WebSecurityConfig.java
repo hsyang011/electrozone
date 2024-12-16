@@ -3,6 +3,7 @@ package me.yangsongi.electrozone.config;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.service.UserDetailService;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +29,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth // 인증, 인가 설정
-                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/login", "/signup", "/user").permitAll()
                         .anyRequest().authenticated())
@@ -37,7 +38,9 @@ public class WebSecurityConfig {
                         .successHandler((request, response, authentication) -> {
                             // 로그인 성공 후 자바스크립트에서 처리할 수 있도록 응답을 전송
                             response.setStatus(HttpServletResponse.SC_OK);
-                            response.getWriter().write("로그인 성공");  // 응답으로 메시지 전송
+                        })
+                        .failureHandler((request, response, exception) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                         }))
 //                        .defaultSuccessUrl("/"))
                 .logout(logout -> logout // 로그아웃 설정
