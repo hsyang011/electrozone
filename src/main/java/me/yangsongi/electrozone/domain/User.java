@@ -1,10 +1,7 @@
 package me.yangsongi.electrozone.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,7 +16,9 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
+@Builder  // 클래스 위로 Builder 어노테이션 이동
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -53,25 +52,21 @@ public class User implements UserDetails {
     private LocalDateTime updatedAt;  // 사용자 수정 시간입니다.
 
     // OAuth2 연동 정보
-    @Column(name = "oauth_provider")
-    private String oauthProvider; // Google, Kakao 등
+    @Column(name = "kakao_id")
+    private Long kakaoId;
 
-    @Column(name = "oauth_provider_id")
-    private String oauthProviderId; // 제공자 발급 ID
-
-    @Builder
-    public User(String email, String nickname, String password, String phone, Role role) {
-        this.email = email;
-        this.nickname = nickname;
-        this.password = password;
-        this.phone = phone;
-        this.role = role;
-    }
+    @Column(name = "google_id")
+    private Long googleId;
 
     // 기존 정보에 OAuth2 연동 추가
-    public void linkOAuth2Account(String oauthProvider, String oauthProviderId) {
-        this.oauthProvider = oauthProvider;
-        this.oauthProviderId = oauthProviderId;
+    public User kakaoIdUpdate(Long kakaoId) {
+        this.kakaoId = kakaoId;
+        return this;
+    }
+
+    public User googleIdUpdate(Long googleId) {
+        this.googleId = googleId;
+        return this;
     }
 
     // 권한 반환
@@ -95,35 +90,30 @@ public class User implements UserDetails {
     // 계정 만료 여부 반환
     @Override
     public boolean isAccountNonExpired() {
-        // 만료되었는지 확인하는 로직
         return true; // true -> 만료되지 않았음
     }
 
     // 계정 잠금 여부 반환
     @Override
     public boolean isAccountNonLocked() {
-        // 계정 잠금되었는지 확인하는 로직
         return true; // true -> 잠금되지 않았음
     }
 
     // 패스워드의 만료 여부 반환
     @Override
     public boolean isCredentialsNonExpired() {
-        // 패스워드가 만료되었는지 확인하는 로직
         return true; // true -> 만료되지 않았음
     }
 
     // 계정 사용 가능 여부 반환
     @Override
     public boolean isEnabled() {
-        // 계정이 사용 가능한지 확인하는 로직
         return true; // true -> 사용 가능
     }
 
     // 사용자 이름 변경
     public User update(String nickname) {
         this.nickname = nickname;
-
         return this;
     }
 

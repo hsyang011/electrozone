@@ -1,5 +1,6 @@
 package me.yangsongi.electrozone.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -30,6 +32,18 @@ public class UserApiController {
     public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return ResponseEntity.status(HttpStatus.OK).build(); // 200 OK 상태 코드 반환
+    }
+
+    @GetMapping("/login/oauth2/code/google")
+    public String googleLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
+//        String token = userService.googleLogin(code);
+        return null;
+    }
+
+    @GetMapping("/login/oauth2/code/kakao")
+    public String kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
+//        String token = userService.kakaoLogin(code);
+        return null;
     }
     
 }
