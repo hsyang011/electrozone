@@ -60,3 +60,35 @@
 .category-item:hover, .search-bar button:hover {
     background-color: #3d6ca3;
 }
+
+/* 미디어 쿼리: 화면 크기가 768px 이하일 때 */
+@media (max-width: 768px) {
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .category-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .product-item {
+        width: 100%; /* 모바일에서는 100% 너비로 설정 */
+    }
+}
+
+/* 미디어 쿼리: 화면 크기가 480px 이하일 때 (작은 모바일 화면) */
+@media (max-width: 480px) {
+    .product-list {
+        display: grid;
+        grid-template-columns: 1fr; /* 모바일에서는 한 열로 표시 */
+        gap: 15px;
+    }
+
+    .category-list {
+        grid-template-columns: 1fr; /* 모바일에서는 한 열로 표시 */
+    }
+}

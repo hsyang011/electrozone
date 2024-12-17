@@ -22,7 +22,7 @@
     <!-- 회원가입 폼 -->
     <section class="form-container">
         <h2>회원가입</h2>
-        <form action="/signup" method="POST" onsubmit="signup(event);">
+        <form action="/join" method="POST" onsubmit="join(event);">
             <div class="form-group">
                 <label for="email">이메일</label>
                 <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
@@ -40,7 +40,7 @@
 
             <div class="form-group">
                 <label for="confirmPassword">비밀번호 확인</label>
-                <input type="password" id="confirmpPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력하세요" required>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력하세요" required>
             </div>
 
             <div class="form-group">
@@ -55,7 +55,5 @@
     <!-- 푸터 영역 -->
     <footer th:replace="~{fragments/footer.html}"></footer> <!-- 푸터 포함 -->
 </div>
-
-<script src="/js/auth.js"></script>
 </body>
 </html>

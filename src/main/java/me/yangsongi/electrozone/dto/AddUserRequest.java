@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-public record AddUserRequest(String email, String nickname, String password, String phone) {
-
-}
+public record AddUserRequest(
+        String email,
+        String nickname,
+        String password,
+        String phone
+) { }

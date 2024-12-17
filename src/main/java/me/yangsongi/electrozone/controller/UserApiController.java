@@ -21,7 +21,7 @@ public class UserApiController {
     
     private final UserService userService;
 
-    @PostMapping("/signup")
+    @PostMapping("/join")
     public ResponseEntity<Void> signup(AddUserRequest request) {
         userService.save(request); // 회원가입 메소드 호출
         return ResponseEntity.status(HttpStatus.CREATED).build(); // 201 Created 상태 코드 반환

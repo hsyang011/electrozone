@@ -39,7 +39,7 @@ public class TokenProvider {
                 .setIssuedAt(now) // 내용 iat : 현재 시간
                 .setExpiration(expiry) // 내용 exp : expiry 멤버변수 값
                 .setSubject(user.getEmail()) // 내용 sub : 유저의 이메일
-                .claim("id", user.getUserId()) // 클레임 id : 유저 ID
+                .claim("userId", user.getUserId()) // 클레임 id : 유저 ID
                 // 서명 : 비밀값과 함께 해시값을 HS256 방식으로 암호화
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
@@ -70,7 +70,7 @@ public class TokenProvider {
     public Long getUserId(String token) {
         Claims claims = getClaims(token);
 
-        return claims.get("id", Long.class);
+        return claims.get("userId", Long.class);
     }
 
     private Claims getClaims(String token) {

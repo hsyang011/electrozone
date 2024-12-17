@@ -6,19 +6,15 @@ import me.yangsongi.electrozone.config.jwt.TokenProvider;
 import me.yangsongi.electrozone.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import me.yangsongi.electrozone.config.oauth.OAuth2SuccessHandler;
 import me.yangsongi.electrozone.config.oauth.OAuth2UserCustomService;
+import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.repository.RefreshTokenRepository;
-import me.yangsongi.electrozone.service.UserDetailService;
 import me.yangsongi.electrozone.service.UserService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,6 +22,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.time.Duration;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -47,15 +45,12 @@ public class WebSecurityConfig {
                 .addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth // 인증, 인가 설정
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/login", "/signup", "/user").permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers("/api/token").permitAll()
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll())
                 .formLogin(form -> form // 폼 기반 로그인 설정
                         .loginPage("/login")
-                        .successHandler((request, response, authentication) -> {
-                            // 로그인 성공 후 자바스크립트에서 처리할 수 있도록 응답을 전송
-                            response.setStatus(HttpServletResponse.SC_OK);
-                        })
+                        .successHandler(formSuccessHandler())
                         .failureHandler((request, response, exception) -> {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                         }))
@@ -72,6 +67,12 @@ public class WebSecurityConfig {
                                 new AntPathRequestMatcher("/api/**")
                         ))
                 .build();
+    }
+
+    @Bean FormSuccessHandler formSuccessHandler() {
+        return new FormSuccessHandler(tokenProvider,
+                refreshTokenRepository
+        );
     }
 
     @Bean
