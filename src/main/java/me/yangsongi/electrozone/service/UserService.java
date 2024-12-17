@@ -19,10 +19,10 @@ public class UserService {
     public Long save(AddUserRequest request) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        String email = request.getEmail();
-        String password = encoder.encode(request.getPassword());
-        String nickname = request.getNickname();
-        String phone = request.getPhone();
+        String email = request.email();
+        String password = encoder.encode(request.password());
+        String nickname = request.nickname();
+        String phone = request.phone();
 
         // 이메일 중복 확인
         Optional<User> checkEmail = userRepository.findByEmail(email);
