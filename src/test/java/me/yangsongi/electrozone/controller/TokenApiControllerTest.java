@@ -76,8 +76,7 @@ class TokenApiControllerTest {
 
         refreshTokenRepository.save(new RefreshToken(testUser.getUserId(), refreshToken));
 
-        CreateAccessTokenRequest request = new CreateAccessTokenRequest();
-        request.setRefreshToken(refreshToken);
+        CreateAccessTokenRequest request = new CreateAccessTokenRequest(refreshToken);
         final String requestBody = objectMapper.writeValueAsString(request);
 
         // when

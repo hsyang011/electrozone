@@ -43,8 +43,8 @@ public class UserServiceTest {
         // then
         User savedUser = userRepository.findById(userId).orElse(null);
         assertThat(savedUser).isNotNull();
-        assertThat(savedUser.getEmail()).isEqualTo(request.getEmail());
-        assertThat(savedUser.getNickname()).isEqualTo(request.getNickname());
+        assertThat(savedUser.getEmail()).isEqualTo(request.email());
+        assertThat(savedUser.getNickname()).isEqualTo(request.nickname());
     }
 
     // findById() 검증 테스트
