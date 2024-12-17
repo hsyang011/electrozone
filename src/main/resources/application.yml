@@ -24,13 +24,34 @@ spring:
           google:
             client-id: 135444853870-6cuvtegops10jnkm4hkp3qir4sev1pct.apps.googleusercontent.com
             client-secret: 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
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google"  # 구글의 리디렉트 URI
             scope:
               - email
               - profile
+          kakao:
+            client-id: 3a2446be0a885b4949b4e1477ccadd81 # 앱키 -> REST API 키
+            client-secret: 6KJYm57fnZEnqvRVJemDxE8jYqZL36yT # 카카오 로그인 -> 보안 -> Client Secret 코드
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao" # yml 파일에서 {} 가 spring 특수문자로 인식되게 하기 위해 " " 사용
+            scope:
+              - profile_nickname
+              - account_email
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize # "인가 코드 받기" 항목
+            token-uri: https://kauth.kakao.com/oauth/token # "토큰 받기" 항목
+            user-info-uri: https://kapi.kakao.com/v2/user/me # "사용자 정보 가져오기" 항목
+            user-name-attribute: id # 식별자 . 카카오의 경우 "id" 사용
 
 jwt:
   issuer: "ELECTRO ZONE"
-  secret_key: "Nyo0hyoAD7bDNw8J4pjiUmH4WVEA+52vqTMh87lX7kGXgBGWukCf5bG8ACENxYGh4+VnxGNYNANaX9xA5Uo0tQ=="
+  secret_key: "QrOMzASZ3fnq1k1C640LB9u/GnBuacPXZ6mTWHC9hU02ig5q8z7DxZfhoZZBizU0qJFoPihyf0azLfFfgBGRmA=="
 
 # 로그인 인증 정보 디버깅
 #logging:

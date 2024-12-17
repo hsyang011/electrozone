@@ -10,11 +10,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            System.out.println("Authenticated User: " + authentication.getPrincipal());
-        }
-
+        System.out.println("리다이렉트 횟수를 체크하는 프린트 문");
         return "index";
     }
 

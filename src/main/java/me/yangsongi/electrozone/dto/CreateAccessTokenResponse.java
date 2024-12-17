@@ -1,5 +1,5 @@
 package me.yangsongi.electrozone.dto;
 
-public record CreateAccessTokenResponse(String accessToken) {
-
-}
+public record CreateAccessTokenResponse(
+        String accessToken
+) { }

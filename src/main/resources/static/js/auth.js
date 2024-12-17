@@ -8,8 +8,14 @@ function login(event) {
         credentials: 'same-origin'  // Same-origin policy를 따르기
     }).then(response => {
         if (response.status === 200) { // 200-299 상태 코드 범위
-            alert('로그인에 성공하였습니다!');
-            location.href = '/';
+            const accessToken = response.headers.get('Authorization');
+            if (accessToken) {
+                localStorage.setItem('access_token', accessToken);
+                alert('로그인에 성공하였습니다!');
+                location.href = '/';
+            } else {
+                alert('액세스 토큰을 받지 못했습니다.');
+            }
         } else if (response.status === 401) {
             alert('로그인에 실패하였습니다. 아이디나 비밀번호를 확인해주세요.');
         } else {
@@ -20,7 +26,7 @@ function login(event) {
     });
 }
 
-function signup(event) {
+function join(event) {
     event.preventDefault();
     const form = event.target;
 
@@ -55,6 +61,9 @@ function logout() {
         method: 'GET', // 로그아웃은 POST 방식으로 보내기
     }).then(response => {
         if (response.ok) {
+            // 로컬 스토리지에 저장된 액세스 토큰을 삭제
+            localStorage.removeItem('access_token');
+            document.cookie = 'refresh_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             alert('로그아웃 되었습니다.');
             location.href = '/';  // 로그아웃 후 홈으로 리디렉션
         } else {

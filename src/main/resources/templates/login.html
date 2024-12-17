@@ -39,7 +39,7 @@
         </form>
 
         <!-- 카카오 로그인 버튼 -->
-        <a href="https://kauth.kakao.com/oauth/authorize" class="oauth-btn kakao-btn">카카오로 로그인</a>
+        <a href="/oauth2/authorization/kakao" class="oauth-btn kakao-btn">카카오로 로그인</a>
 
         <!-- 구글 로그인 버튼 -->
         <a href="/oauth2/authorization/google" class="oauth-btn google-btn">구글로 로그인</a>
@@ -54,7 +54,5 @@
     <!-- 푸터 영역 -->
     <footer th:replace="~{fragments/footer.html}"></footer> <!-- 푸터 포함 -->
 </div>
-
-<script src="/js/auth.js"></script>
 </body>
 </html>

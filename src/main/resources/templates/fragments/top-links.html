@@ -1,6 +1,21 @@
 <div class="top-links">
-    <a sec:authorize="!isAuthenticated()" href="/login">로그인</a>
-    <a sec:authorize="!isAuthenticated()" href="/signup">회원가입</a>
-    <a sec:authorize="isAuthenticated()" href="javascript:void(0)" onclick="logout();">로그아웃</a>
+    <a href="/login" id="login-link">로그인</a>
+    <a href="/join" id="join-link">회원가입</a>
+    <a href="javascript:void(0)" id="logout-link" onclick="logout();">로그아웃</a>
     <a href="#">고객센터</a>
 </div>
+<script src="/js/auth.js"></script>
+<script src="/js/token.js"></script>
+<script>
+    // JWT 토큰이 localStorage에 존재하는지 확인
+    // 로그인 여부에 따라 링크 표시 변경
+    if (localStorage.getItem('access_token')) {
+        document.getElementById('login-link').style.display = 'none';
+        document.getElementById('join-link').style.display = 'none';
+        document.getElementById('logout-link').style.display = 'inline';
+    } else {
+        document.getElementById('login-link').style.display = 'inline';
+        document.getElementById('join-link').style.display = 'inline';
+        document.getElementById('logout-link').style.display = 'none';
+    }
+</script>
