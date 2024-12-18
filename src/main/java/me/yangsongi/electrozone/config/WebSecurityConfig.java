@@ -6,8 +6,7 @@ import me.yangsongi.electrozone.config.jwt.TokenProvider;
 import me.yangsongi.electrozone.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import me.yangsongi.electrozone.config.oauth.OAuth2SuccessHandler;
 import me.yangsongi.electrozone.config.oauth.OAuth2UserCustomService;
-import me.yangsongi.electrozone.domain.User;
-import me.yangsongi.electrozone.repository.RefreshTokenRepository;
+import me.yangsongi.electrozone.service.RefreshTokenService;
 import me.yangsongi.electrozone.service.UserService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -23,8 +22,6 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.time.Duration;
-
 @EnableWebSecurity
 @RequiredArgsConstructor
 @Configuration
@@ -32,7 +29,7 @@ public class WebSecurityConfig {
 
     private final OAuth2UserCustomService oAuth2UserCustomService;
     private final TokenProvider tokenProvider;
-    private final RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenService refreshTokenService;
     private final UserService userService;
 
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
@@ -51,10 +48,7 @@ public class WebSecurityConfig {
                 .formLogin(form -> form // 폼 기반 로그인 설정
                         .loginPage("/login")
                         .successHandler(formSuccessHandler())
-                        .failureHandler((request, response, exception) -> {
-                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                        }))
-//                        .defaultSuccessUrl("/"))
+                        .failureHandler((request, response, exception) -> response.setStatus(HttpServletResponse.SC_UNAUTHORIZED)))
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
                         .authorizationEndpoint(authorizationEndpoint ->
@@ -69,17 +63,16 @@ public class WebSecurityConfig {
                 .build();
     }
 
-    @Bean FormSuccessHandler formSuccessHandler() {
-        return new FormSuccessHandler(tokenProvider,
-                refreshTokenRepository
-        );
+    @Bean
+    FormSuccessHandler formSuccessHandler() {
+        return new FormSuccessHandler(tokenProvider, refreshTokenService);
     }
 
     @Bean
     public OAuth2SuccessHandler oAuth2SuccessHandler() {
         return new OAuth2SuccessHandler(tokenProvider,
-                refreshTokenRepository,
                 oAuth2AuthorizationRequestBasedOnCookieRepository(),
+                refreshTokenService,
                 userService
         );
     }
