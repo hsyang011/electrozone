@@ -1,7 +1,10 @@
 package me.yangsongi.electrozone.config.oauth;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.config.jwt.TokenProvider;
 import me.yangsongi.electrozone.domain.User;
@@ -32,7 +35,19 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User)authentication.getPrincipal();
-        User user = userService.findByEmail((String)oAuth2User.getAttributes().get("email"));
+        // 세션에 저장된 provider 값을 가져오기 위해 JsonNode와 Session을 가져옵니다.
+        JsonNode jsonNode = new ObjectMapper().convertValue(oAuth2User.getAttributes(), JsonNode.class);
+        HttpSession session = request.getSession();
+        String provider = (String)session.getAttribute("provider");
+        session.removeAttribute("provider");
+
+        // provider별로 email을 가져오는 방식이 다르므로 switch문으로 분기합니다.
+        String email = switch (provider) {
+            case "google" -> jsonNode.get("email").asText();
+            case "kakao" -> jsonNode.get("kakao_account").get("email").asText();
+            default -> throw new IllegalArgumentException("Unknown provider: " + provider); // 기본값 처리
+        };
+        User user = userService.findByEmail(email);
 
         // 리프레시 토큰 생성 -> 저장 -> 쿠키에 저장
         String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);
