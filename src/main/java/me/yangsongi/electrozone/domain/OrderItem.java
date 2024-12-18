@@ -23,11 +23,11 @@ public class OrderItem {
     @Column(name = "order_item_id")
     private Long orderItemId;  // 주문 상세 고유 ID입니다.
 
-    @Column(name = "quantity")
-    private int quantity;  // 주문 상품 수량입니다.
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;  // 주문 상품 수량입니다.
 
-    @Column(name = "price")
-    private BigDecimal price;  // 주문 상품 가격입니다.
+    @Column(name = "price", nullable = false)
+    private Integer price;  // 주문 상품 가격입니다.
 
     @CreatedDate
     @Column(name = "created_at")
