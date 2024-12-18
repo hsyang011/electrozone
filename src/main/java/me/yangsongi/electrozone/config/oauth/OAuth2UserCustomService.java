@@ -60,7 +60,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         User user = userRepository.findByEmail(email)
                 .map(entity -> {
                     updateProviderId(entity, provider, attributes);
-                    return entity.update(name);
+                    return entity;
                 })
                 .orElseGet(() -> {
                     // 유저가 없으면 새로운 유저 생성
