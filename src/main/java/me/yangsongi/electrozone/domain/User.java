@@ -111,10 +111,4 @@ public class User implements UserDetails {
         return true; // true -> 사용 가능
     }
 
-    // 사용자 이름 변경
-    public User update(String nickname) {
-        this.nickname = nickname;
-        return this;
-    }
-
 }
