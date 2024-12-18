@@ -27,10 +27,10 @@ public class Product {
     private String name;  // 상품 이름입니다.
 
     @Column(name = "price", nullable = false)
-    private BigDecimal price;  // 상품 가격입니다.
+    private Integer price;  // 상품 가격입니다.
 
     @Column(name = "stock", nullable = false)
-    private int stock;  // 상품 재고 수량입니다.
+    private Integer stock;  // 상품 재고 수량입니다.
 
     @Column(name = "brand")
     private String brand;  // 상품 브랜드입니다.
@@ -46,8 +46,12 @@ public class Product {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;  // 상품 수정 시간입니다.
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;  // 카테고리와의 N:1 단방향 관계입니다.
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "category", nullable = false)
+    private Category category;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "sub_category", nullable = false)
+    private Category.SubCategory subCategory;
 
 }
