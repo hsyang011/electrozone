@@ -22,7 +22,7 @@ public class Review {
     @Column(name = "review_id")
     private Long reviewId;  // 리뷰 고유 ID입니다.
 
-    @Column(name = "rating")
+    @Column(name = "rating", nullable = false)
     private int rating;  // 상품에 대한 평점입니다.
 
     @Column(name = "comment")

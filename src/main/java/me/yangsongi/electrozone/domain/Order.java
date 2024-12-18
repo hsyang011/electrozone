@@ -23,17 +23,13 @@ public class Order {
     @Column(name = "order_id")
     private Long orderId;  // 주문 고유 ID입니다.
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;  // 사용자와의 N:1 단방향 관계입니다.
-
-    @Column(name = "order_date")
+    @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;  // 주문 날짜입니다.
 
-    @Column(name = "total_amount")
-    private BigDecimal totalAmount;  // 총 주문 금액입니다.
+    @Column(name = "total_amount", nullable = false)
+    private Integer totalAmount;  // 총 주문 금액입니다.
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private String status;  // 주문 상태입니다.
 
     @CreatedDate
@@ -43,5 +39,9 @@ public class Order {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;  // 주문 수정 시간입니다.
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;  // 사용자와의 N:1 단방향 관계입니다.
 
 }

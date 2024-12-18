@@ -26,13 +26,10 @@ public class Coupon {
     private String code;  // 쿠폰 코드입니다.
 
     @Column(name = "discount")
-    private double discount;  // 할인율입니다.
+    private Double discount;  // 할인율입니다.
 
-    @Column(name = "start_date")
-    private LocalDateTime startDate;  // 쿠폰 시작 날짜입니다.
-
-    @Column(name = "end_date")
-    private LocalDateTime endDate;  // 쿠폰 종료 날짜입니다.
+    @Column(name = "expired_at")
+    private LocalDateTime expiredAt;  // 쿠폰 만료 날짜입니다.
 
     @CreatedDate
     @Column(name = "created_at")
