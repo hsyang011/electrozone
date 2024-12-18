@@ -16,7 +16,7 @@ public class CartItem {
     @Column(name = "cart_item_id")
     private Long cartItemId;  // 장바구니 항목 고유 ID입니다.
 
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     private int quantity;  // 상품 수량입니다.
 
     @ManyToOne(fetch = FetchType.LAZY)
