@@ -1,3 +1,9 @@
+// 파라미터로 받은 토큰이 있다면 로컬스토리지에 저장
+const oauth2token = new URLSearchParams(location.search).get('token');
+if (oauth2token) {
+    localStorage.setItem('access_token', oauth2token);
+}
+
 function login(event) {
     event.preventDefault();
     const form = event.target;
@@ -8,9 +14,9 @@ function login(event) {
         credentials: 'same-origin'  // Same-origin policy를 따르기
     }).then(response => {
         if (response.status === 200) { // 200-299 상태 코드 범위
-            const accessToken = response.headers.get('Authorization');
-            if (accessToken) {
-                localStorage.setItem('access_token', accessToken);
+            const token = response.headers.get('Authorization');
+            if (token) {
+                localStorage.setItem('access_token', token);
                 alert('로그인에 성공하였습니다!');
                 location.href = '/';
             } else {
