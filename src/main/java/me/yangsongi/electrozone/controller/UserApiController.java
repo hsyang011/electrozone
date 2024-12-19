@@ -3,6 +3,7 @@ package me.yangsongi.electrozone.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.dto.AddUserRequest;
 import me.yangsongi.electrozone.service.UserService;
@@ -22,7 +23,7 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public ResponseEntity<Void> signup(AddUserRequest request) {
+    public ResponseEntity<Void> signup(@Valid AddUserRequest request) {
         userService.save(request); // 회원가입 메소드 호출
         return ResponseEntity.status(HttpStatus.CREATED).build(); // 201 Created 상태 코드 반환
     }
