@@ -54,7 +54,15 @@ function join(event) {
             alert('회원가입에 성공하였습니다!');
             location.href = '/login';  // 로그인 페이지로 리디렉션
         } else if (response.status === 400) {
-            alert('입력한 정보에 오류가 있습니다. 다시 확인해주세요.');
+            // 서버에서 반환된 오류 메시지 처리
+            response.json().then(errors => {
+                if (errors) {
+                    // 서버에서 받은 errors 배열을 출력
+                    alert(errors.join('\n'));
+                } else {
+                    alert('입력한 정보에 오류가 있습니다. 다시 확인해주세요.');
+                }
+            });
         } else {
             alert('서버 오류가 발생했습니다. 나중에 다시 시도해주세요.');
         }

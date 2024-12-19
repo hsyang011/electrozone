@@ -14,7 +14,7 @@ public record AddUserRequest(
         String nickname,
 
         @NotBlank(message = "비밀번호는 필수입니다.")
-        @Size(min = 4, max = 16, message = "비밀번호는 8자 이상, 20자 이하로 설정해야 합니다.")
+        @Size(min = 4, max = 16, message = "비밀번호는 4자 이상, 20자 이하로 설정해야 합니다.")
         String password,
 
         @Pattern(regexp = "^[0-9]+$", message = "전화번호는 숫자만 포함해야 합니다.")
