@@ -10,6 +10,9 @@ public record AddUserRequest(
         @Email(message = "이메일 형식이 올바르지 않습니다.")
         String email,
 
+        @NotBlank(message = "이름은 필수입니다.")
+        String name,
+
         @NotBlank(message = "닉네임은 필수입니다.")
         String nickname,
 
