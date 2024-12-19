@@ -26,9 +26,12 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;  // 사용자 고유 ID입니다.
+    
+    @Column(name = "name", nullable = false)
+    private String name; // 사용자 이름입니다.
 
     @Column(name = "nickname", nullable = false)
-    private String nickname;  // 사용자 이름입니다.
+    private String nickname;  // 사용자 별명입니다.
 
     @Column(name = "email", nullable = false)
     private String email;  // 사용자 이메일입니다.
@@ -109,6 +112,12 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true; // true -> 사용 가능
+    }
+
+    // 사용자 이름 변경
+    public User update(String name) {
+        this.name = name;
+        return this;
     }
 
 }

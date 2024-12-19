@@ -60,12 +60,13 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         User user = userRepository.findByEmail(email)
                 .map(entity -> {
                     updateProviderId(entity, provider, attributes);
-                    return entity;
+                    return entity.update(name);
                 })
                 .orElseGet(() -> {
                     // 유저가 없으면 새로운 유저 생성
                     User.UserBuilder userBuilder = User.builder()
                             .email(email)
+                            .name(name)
                             .nickname(name)
                             .role(Role.USER)
                             .password(generateRandomPassword());
