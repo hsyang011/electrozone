@@ -49,7 +49,7 @@ public class TokenProviderTest {
                 .setSigningKey(jwtProperties.getSecretKey())
                 .parseClaimsJws(token)
                 .getBody()
-                .get("id", Long.class);
+                .get("userId", Long.class);
 
         assertThat(userId).isEqualTo(testUser.getUserId());
     }
@@ -110,7 +110,7 @@ public class TokenProviderTest {
         // given
         Long userId = 1L;
         String token = JwtFactory.builder()
-                .claims(Map.of("id", userId))
+                .claims(Map.of("userId", userId))
                 .build()
                 .createToken(jwtProperties);
 
