@@ -3,6 +3,7 @@ const oauth2token = new URLSearchParams(location.search).get('token');
 if (oauth2token) {
     localStorage.setItem('access_token', oauth2token);
     alert('로그인에 성공하였습니다!');
+    location.href = '/';
 }
 
 function login(event) {
