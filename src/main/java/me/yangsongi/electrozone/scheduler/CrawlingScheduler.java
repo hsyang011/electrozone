@@ -18,7 +18,7 @@ public class CrawlingScheduler {
 
     private final ProductService productService;
 
-    @Scheduled(cron = "0 0 00 * * ?") // 매일 자정 12시
+    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정 12시
     public void executePythonScript() {
         // 파이썬 실행 파일 경로
         String pythonScriptPath = "scripts/crawler.exe"; // 파이썬 크롤링 실행 프로그램 경로
