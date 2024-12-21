@@ -36,18 +36,23 @@
             <!-- 옵션 선택 영역 -->
             <div class="options">
                 <div>
-                    <label for="stock">재고</label>
-                    <select id="stock" name="stock">
-                        <option th:each="color : ${product.stock}" th:value="${stock}" th:text="${stock}"></option>
+                    <label for="quantity">수량 선택</label>
+                    <select id="quantity" name="quantity" th:onchange="updateTotalPrice([[${product.price}]])">
+                        <!-- 수량 옵션 1~5까지 -->
+                        <option value="1">1개</option>
+                        <option value="2">2개</option>
+                        <option value="3">3개</option>
+                        <option value="4">4개</option>
+                        <option value="5">5개</option>
                     </select>
                 </div>
-<!--                <div>-->
-<!--                    <label for="size">사이즈</label>-->
-<!--                    <select id="size" name="size">-->
-<!--                        <option th:each="size : ${product.sizes}" th:value="${size}" th:text="${size}"></option>-->
-<!--                    </select>-->
-<!--                </div>-->
             </div>
+
+            <!-- 총 금액 표시 -->
+            <div class="price" id="totalPrice">
+                <p th:text="|총 금액 : &#8361;${#numbers.formatInteger(product.price, 0, 'COMMA')}|"></p>
+            </div>
+
 
             <!-- 버튼 그룹 -->
             <div class="button-group">
@@ -69,5 +74,7 @@
     <!-- 푸터 영역 -->
     <footer th:replace="~{fragments/footer.html}"></footer>
 </div>
+
+<script src="/js/cart.js"></script>
 </body>
 </html>
