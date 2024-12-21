@@ -92,7 +92,7 @@ public class ProductService {
         return LocalDateTime.parse(formattedDate, formatter); // 기본적으로 1일 00시로 설정
     }
 
-    public List<Product> findTop6ByOrderByRegisteredAtDesc() {
+    public List<Product> getTop6LatestProducts() {
         return productRepository.findTop6ByOrderByRegisteredAtDesc();
     }
 
