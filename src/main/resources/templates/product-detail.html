@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELECTRO ZONE 플랫폼</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/product-detail.css">
+</head>
+<body>
+<div class="container">
+    <!-- 상단 링크 영역 -->
+    <div th:replace="~{fragments/top-links.html}"></div>
+
+    <!-- 헤더 영역 -->
+    <header th:replace="~{fragments/header.html}"></header>
+
+    <!-- 상품 상세 영역 -->
+    <div class="product-detail">
+        <!-- 이미지 영역 -->
+        <div class="image-section">
+            <img th:src="@{${product.imageUrl}}" alt="상품 이미지">
+        </div>
+
+        <!-- 상품 정보 영역 -->
+        <div class="info-section">
+            <h1 th:text="${product.name}"></h1>
+            <div class="price">
+                <span th:text="|&#8361;${#numbers.formatInteger(product.price, 0, 'COMMA')}|"></span>
+            </div>
+            <div class="description">
+                <p th:text="${product.specs}"></p>
+            </div>
+
+            <!-- 옵션 선택 영역 -->
+            <div class="options">
+                <div>
+                    <label for="stock">재고</label>
+                    <select id="stock" name="stock">
+                        <option th:each="color : ${product.stock}" th:value="${stock}" th:text="${stock}"></option>
+                    </select>
+                </div>
+<!--                <div>-->
+<!--                    <label for="size">사이즈</label>-->
+<!--                    <select id="size" name="size">-->
+<!--                        <option th:each="size : ${product.sizes}" th:value="${size}" th:text="${size}"></option>-->
+<!--                    </select>-->
+<!--                </div>-->
+            </div>
+
+            <!-- 버튼 그룹 -->
+            <div class="button-group">
+                <button type="button">장바구니에 담기</button>
+                <button type="button">바로 구매</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 상품 리뷰 영역 -->
+<!--    <div class="reviews">-->
+<!--        <h3>상품 리뷰</h3>-->
+<!--        <div th:each="review : ${product.reviews}" class="review-item">-->
+<!--            <div class="reviewer" th:text="${review.reviewerName}"></div>-->
+<!--            <div class="review-text" th:text="${review.content}"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <!-- 푸터 영역 -->
+    <footer th:replace="~{fragments/footer.html}"></footer>
+</div>
+</body>
+</html>

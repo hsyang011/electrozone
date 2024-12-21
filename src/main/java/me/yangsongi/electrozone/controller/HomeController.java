@@ -18,7 +18,7 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
         List<HomeViewResponse> top6LatestProducts = productService.findTop6ByOrderByRegisteredAtDesc().stream()
-                .map(product -> new HomeViewResponse(product.getProductId(), product.getImageUrl(), product.getName(), product.getPrice()))
+                .map(HomeViewResponse::new)
                 .toList();
         model.addAttribute("top6LatestProducts", top6LatestProducts);
 

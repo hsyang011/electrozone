@@ -96,4 +96,9 @@ public class ProductService {
         return productRepository.findTop6ByOrderByRegisteredAtDesc();
     }
 
+    public Product findById(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + productId));
+    }
+
 }
