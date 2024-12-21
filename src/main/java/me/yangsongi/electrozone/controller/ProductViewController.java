@@ -16,11 +16,11 @@ public class ProductViewController {
     private final ProductService productService;
 
     @GetMapping("/products/{productId}")
-    public String productDetail(@PathVariable("productId") Long productId, Model model) {
+    public String product(@PathVariable("productId") Long productId, Model model) {
         Product product = productService.findById(productId);
         model.addAttribute("product", new ProductViewResponse(product));
 
-        return "product-detail";
+        return "product";
     }
 
 }
