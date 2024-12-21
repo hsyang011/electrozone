@@ -1,14 +1,14 @@
 package me.yangsongi.electrozone.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "cart_items")
 public class CartItem {
@@ -30,5 +30,14 @@ public class CartItem {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "product_id")
     private Product product;  // 상품과의 N:1 단방향 관계입니다.
+
+    // Cart 설정 메서드
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public void updateQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
 }
