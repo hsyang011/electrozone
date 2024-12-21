@@ -11,7 +11,8 @@
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 200px;
+    width: calc(100% / 6 - 10px); /* 한 행에 6개씩 표시, 여백을 고려하여 계산 */
+    margin: 5px; /* 각 상품 간 간격 */
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
 }
@@ -76,7 +77,7 @@
     }
 
     .product-item {
-        width: 100%; /* 모바일에서는 100% 너비로 설정 */
+        width: calc(100% / 4 - 10px); /* 4개씩 표시 */
     }
 }
 
@@ -86,6 +87,10 @@
         display: grid;
         grid-template-columns: 1fr; /* 모바일에서는 한 열로 표시 */
         gap: 15px;
+    }
+
+    .product-item {
+        width: 100%; /* 모바일에서는 한 열로 표시 */
     }
 
     .category-list {
