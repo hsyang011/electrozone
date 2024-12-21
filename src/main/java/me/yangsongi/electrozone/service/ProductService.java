@@ -92,13 +92,19 @@ public class ProductService {
         return LocalDateTime.parse(formattedDate, formatter); // 기본적으로 1일 00시로 설정
     }
 
+    public Product findById(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + productId));
+    }
+
+    // 최신 상품 6개를 가져옵니다.
     public List<Product> getTop6LatestProducts() {
         return productRepository.findTop6ByOrderByRegisteredAtDesc();
     }
 
-    public Product findById(Long productId) {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("not found : " + productId));
+    // 인기상품 6개를 가져옵니다.
+    public List<Product> getTop12PopularProducts(Category category) {
+        return productRepository.findTop12ByCategory(category);
     }
 
 }

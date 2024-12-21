@@ -42,7 +42,7 @@ public class WebSecurityConfig {
                 .addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth // 인증, 인가 설정
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
-                        .requestMatchers("/api/token").permitAll()
+                        .requestMatchers("/api/token", "/api/home").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll())
                 .formLogin(form -> form // 폼 기반 로그인 설정
