@@ -1,12 +1,15 @@
 package me.yangsongi.electrozone.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "carts")
 public class Cart {
@@ -19,5 +22,20 @@ public class Cart {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;  // 사용자와의 N:1 단방향 관계입니다.
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> cartItems = new ArrayList<>();
+
+    // CartItem 추가 메서드
+    public void addCartItem(CartItem cartItem) {
+        this.cartItems.add(cartItem);
+        cartItem.setCart(this);
+    }
+
+    // CartItem 삭제 메서드
+    public void removeCartItem(CartItem cartItem) {
+        this.cartItems.remove(cartItem);
+        cartItem.setCart(null);
+    }
 
 }
