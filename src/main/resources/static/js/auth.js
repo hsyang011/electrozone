@@ -73,19 +73,29 @@ function join(event) {
 }
 
 function logout() {
-    fetch('/logout', {
-        method: 'GET', // 로그아웃은 POST 방식으로 보내기
-    }).then(response => {
-        if (response.ok) {
-            // 로컬 스토리지에 저장된 액세스 토큰을 삭제
-            localStorage.removeItem('access_token');
-            document.cookie = 'refresh_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            alert('로그아웃 되었습니다.');
-            location.href = '/';  // 로그아웃 후 홈으로 리디렉션
-        } else {
-            alert('로그아웃 중 오류가 발생했습니다.');
-        }
-    }).catch(error => {
-        alert('로그아웃 중 오류 발생: ' + error.message);
-    });
+    const success = () => {
+        fetch('/logout', {
+            method: 'GET', // 로그아웃은 POST 방식으로 보내기
+        }).then(response => {
+            if (response.ok) {
+                // 로컬 스토리지에 저장된 액세스 토큰을 삭제
+                localStorage.removeItem('access_token');
+                document.cookie = 'refresh_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                alert('로그아웃 되었습니다.');
+                location.href = '/';  // 로그아웃 후 홈으로 리디렉션
+            } else {
+                alert('로그아웃 중 오류가 발생했습니다.');
+            }
+        }).catch(error => {
+            alert('로그아웃 중 오류 발생: ' + error.message);
+        });
+    };
+
+    const fail = () => {
+        console.warn('리프레시 토큰을 삭제하는 데 실패하였습니다.');
+        // 리프레시 토큰 삭제 실패하더라도 로그아웃을 진행
+        success();
+    }
+
+    httpRequest('DELETE', '/api/refresh-token', null, success, fail);
 }

@@ -3,10 +3,13 @@ package me.yangsongi.electrozone.service;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.yangsongi.electrozone.config.jwt.TokenProvider;
 import me.yangsongi.electrozone.domain.RefreshToken;
 import me.yangsongi.electrozone.repository.RefreshTokenRepository;
 import me.yangsongi.electrozone.util.CookieUtil;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 
@@ -16,8 +19,8 @@ public class RefreshTokenService {
 
     public static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
     public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
-
     private final RefreshTokenRepository refreshTokenRepository;
+    private final TokenProvider tokenProvider;
 
     public RefreshToken findByRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
@@ -38,6 +41,14 @@ public class RefreshTokenService {
         int cookieMaxAge = (int)REFRESH_TOKEN_DURATION.toSeconds();
         CookieUtil.deleteCookie(request, response, REFRESH_TOKEN_COOKIE_NAME);
         CookieUtil.addCookie(response, REFRESH_TOKEN_COOKIE_NAME, refreshToken, cookieMaxAge);
+    }
+
+    @Transactional
+    public void delete() {
+        String token = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
+        Long userId = tokenProvider.getUserId(token);
+
+        refreshTokenRepository.deleteByUserId(userId);
     }
 
 }
