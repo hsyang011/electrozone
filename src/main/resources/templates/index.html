@@ -34,46 +34,31 @@
     <section class="categories">
         <h2>모든 카테고리</h2>
         <div class="category-list">
-            <div class="category-item">CPU</div>
-            <div class="category-item">메인보드</div>
-            <div class="category-item">메모리</div>
-            <div class="category-item">그래픽카드</div>
-            <div class="category-item">SSD</div>
-            <div class="category-item">하드디스크</div>
-            <div class="category-item">케이스</div>
-            <div class="category-item">파워</div>
-            <div class="category-item">CPU쿨러</div>
-            <div class="category-item">소프트웨어</div>
-            <div class="category-item">모니터</div>
-            <div class="category-item">마우스</div>
-            <div class="category-item">키보드</div>
-            <div class="category-item">스피커</div>
-            <div class="category-item">헤드셋</div>
+            <div class="category-item" onclick="getProductsByCategory('CPU')">CPU</div>
+            <div class="category-item" onclick="getProductsByCategory('MAINBOARD')">메인보드</div>
+            <div class="category-item" onclick="getProductsByCategory('MEMORY')">메모리</div>
+            <div class="category-item" onclick="getProductsByCategory('GPU')">그래픽카드</div>
+            <div class="category-item" onclick="getProductsByCategory('SSD')">SSD</div>
+            <div class="category-item" onclick="getProductsByCategory('HDD')">하드디스크</div>
+            <div class="category-item" onclick="getProductsByCategory('CASE')">케이스</div>
+            <div class="category-item" onclick="getProductsByCategory('POWER')">파워</div>
+            <div class="category-item" onclick="getProductsByCategory('CPU_COOLER')">CPU쿨러</div>
+            <div class="category-item" onclick="getProductsByCategory('SOFTWARE')">소프트웨어</div>
+            <div class="category-item" onclick="getProductsByCategory('MONITOR')">모니터</div>
+            <div class="category-item" onclick="getProductsByCategory('MOUSE')">마우스</div>
+            <div class="category-item" onclick="getProductsByCategory('KEYBOARD')">키보드</div>
+            <div class="category-item" onclick="getProductsByCategory('SPEAKER')">스피커</div>
+            <div class="category-item" onclick="getProductsByCategory('HEADSET')">헤드셋</div>
         </div>
     </section>
 
     <section>
         <h2>인기 상품</h2>
-        <div class="product-list">
-            <div class="product-item">
-                <img src="https://via.placeholder.com/200" alt="상품 1">
-                <p>상품 1</p>
-                <span>₩50,000</span>
-            </div>
-            <div class="product-item">
-                <img src="https://via.placeholder.com/200" alt="상품 2">
-                <p>상품 2</p>
-                <span>₩70,000</span>
-            </div>
-            <div class="product-item">
-                <img src="https://via.placeholder.com/200" alt="상품 3">
-                <p>상품 3</p>
-                <span>₩30,000</span>
-            </div>
-            <div class="product-item">
-                <img src="https://via.placeholder.com/200" alt="상품 4">
-                <p>상품 4</p>
-                <span>₩80,000</span>
+        <div class="product-list" id="product-list">
+            <div th:each="product : ${top12PopularProducts}" class="product-item" th:onclick="|location.href='@{/products/{id}(id=${product.productId})}'|">
+                <img th:src="@{${product.imageUrl}}" alt="상품">
+                <p th:text="${product.name}"></p>
+                <span th:text="|&#8361;${#numbers.formatInteger(product.price, 0, 'COMMA')}|"></span>
             </div>
         </div>
     </section>
@@ -81,5 +66,7 @@
     <!-- 푸터 영역 -->
     <footer th:replace="~{fragments/footer.html}"></footer> <!-- 푸터 포함 -->
 </div>
+
+<script src="/js/home.js"></script>
 </body>
 </html>
