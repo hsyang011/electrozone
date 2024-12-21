@@ -35,7 +35,7 @@ public class UserServiceTest {
     @Test
     void save() {
         // given
-        AddUserRequest request = new AddUserRequest("user@gmail.com", "testUser", "1234", "01012345678");
+        AddUserRequest request = new AddUserRequest("user@gmail.com", "testUser", "testUser", "1234", "01012345678");
 
         // when
         Long userId = userService.save(request);
@@ -54,6 +54,7 @@ public class UserServiceTest {
         // given
         User user = userRepository.save(User.builder()
                 .email("user@gmail.com")
+                .name("testUser")
                 .nickname("testUser")
                 .password("password")
                 .phone("010-1234-5678")
@@ -74,7 +75,7 @@ public class UserServiceTest {
     @Test
     void save_duplicateEmail() {
         // given
-        AddUserRequest request = new AddUserRequest("user@gmail.com", "testUser", "1234", "01012345678");
+        AddUserRequest request = new AddUserRequest("user@gmail.com", "testUser", "testUser", "1234", "01012345678");
 
         // when
         userService.save(request);
@@ -90,14 +91,14 @@ public class UserServiceTest {
     @Test
     void save_duplicateNickname() {
         // given
-        AddUserRequest request1 = new AddUserRequest("user1@gmail.com", "duplicateNickname", "1234", "01012345678");
+        AddUserRequest request1 = new AddUserRequest("user1@gmail.com", "duplicateNickname", "duplicateNickname", "1234", "01012345678");
         userService.save(request1); // 첫 번째 유저 생성
 
-        AddUserRequest request2 = new AddUserRequest("user2@gmail.com", "duplicateNickname", "1234", "01098765432");
+        AddUserRequest request2 = new AddUserRequest("user2@gmail.com", "duplicateNickname", "duplicateNickname", "1234", "01098765432");
 
         // when & then
         assertThatThrownBy(() -> userService.save(request2))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("중복된 닉네임입니다.");
+                .hasMessage("이미 가입하셨습니다.");
     }
 }
