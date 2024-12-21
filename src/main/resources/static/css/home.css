@@ -77,7 +77,7 @@
     }
 
     .product-item {
-        width: calc(100% / 4 - 10px); /* 4개씩 표시 */
+        width: 100%;
     }
 }
 
