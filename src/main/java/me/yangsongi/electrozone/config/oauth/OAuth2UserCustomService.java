@@ -3,7 +3,6 @@ package me.yangsongi.electrozone.config.oauth;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.domain.Role;
 import me.yangsongi.electrozone.domain.User;
