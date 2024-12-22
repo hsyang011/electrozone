@@ -27,3 +27,21 @@ function addToCart(productId) {
 
     httpRequest('POST', '/api/cart', body, success, fail);
 }
+
+// 리뷰 등록 기능
+function addReview(event) {
+    event.preventDefault();
+    const form = event.target;
+    const body = JSON.stringify({
+        productId: form.productId.value,
+        content: form.content.value
+    });
+    const success = () => {
+        alert('등록 완료되었습니다.');
+    };
+    const fail = () => {
+        alert('등록 실패했습니다.');
+    }
+
+    httpRequest(form.method, form.action, body, success, fail);
+}
