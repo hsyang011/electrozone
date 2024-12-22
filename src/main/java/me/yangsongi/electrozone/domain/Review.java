@@ -1,9 +1,7 @@
 package me.yangsongi.electrozone.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,6 +13,8 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "reviews")
 public class Review {
@@ -27,8 +27,8 @@ public class Review {
     @Column(name = "rating", nullable = false)
     private int rating;  // 상품에 대한 평점입니다.
 
-    @Column(name = "comment")
-    private String comment;  // 상품에 대한 댓글입니다.
+    @Column(name = "content", length = 1023)
+    private String content;  // 상품에 대한 댓글입니다.
 
     @CreatedDate
     @Column(name = "created_at")
