@@ -1,9 +1,7 @@
 package me.yangsongi.electrozone.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,6 +12,8 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
 public class Order {
@@ -22,6 +22,15 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Long orderId;  // 주문 고유 ID입니다.
+
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "payment_method", nullable = false)
+    private String paymentMethod;
+
+    @Column(name = "address", nullable = false)
+    private String address;
 
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;  // 주문 날짜입니다.

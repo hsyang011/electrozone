@@ -4,11 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class CartViewController {
+public class OrderViewController {
 
-    @GetMapping("/cart")
-    public String cart() {
-        return "cart";
+    @GetMapping("/checkout")
+    public String order() {
+        return "checkout";
     }
 
 }
