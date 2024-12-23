@@ -65,13 +65,11 @@
     <!-- 리뷰 섹션 -->
     <div class="reviews">
         <h3>리뷰 목록</h3>
-        <div class="review-item">
-            <p class="reviewer">리뷰어 이름</p>
-            <p class="review-text">리뷰 내용</p>
-        </div>
-        <div class="review-item">
-            <p class="reviewer">리뷰어 이름</p>
-            <p class="review-text">리뷰 내용</p>
+        <div th:each="review : ${product.reviews}">
+            <div class="review-item">
+                <p th:text="${review.user.nickname}" class="reviewer"></p>
+                <p th:text="${review.content}" class="review-text">리뷰 내용</p>
+            </div>
         </div>
 
         <h3>리뷰 작성</h3>
