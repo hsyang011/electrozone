@@ -1,0 +1,101 @@
+/* 테이블 제목 중앙 정렬 */
+.cart-title {
+    font-size: 24px;  /* 글자 크기 조정 */
+    color: #5f87c2;  /* 제목 색상 */
+    font-weight: bold;
+    text-align: center;  /* 중앙 정렬 */
+    padding: 0 0 20px 0;  /* 위아래 여백 */
+}
+
+/* 장바구니 페이지 전용 스타일 */
+.cart-container {
+    display: flex;
+    gap: 20px;  /* 장바구니와 주문하기 공간 사이 여백 */
+    width: 100%;
+    max-width: 1200px; /* 전체 최대 너비 제한 */
+    margin: 60px auto 30px auto;
+    padding: 0 15px 15px 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.cart {
+    width: 80%;  /* 장바구니 영역 80% */
+    padding: 0 20px 20px 20px;
+}
+
+.order {
+    width: 20%;  /* 주문하기 영역 20% */
+    padding: 20px;
+    margin: 30px 20px 20px 20px;
+    background-color: #ececec;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 16px;
+    color: #5f87c2;
+}
+
+#total-price {
+    margin-bottom: 10px;  /* 총 금액과 주문하기 버튼 사이의 여백 */
+}
+
+.checkout-btn {
+    margin-top: 10px;  /* 버튼과 총 금액 사이의 여백 */
+}
+
+/* 장바구니 테이블 */
+.cart-table {
+    width: 100%;  /* 테이블 너비 100% */
+    border-collapse: collapse;
+    margin-top: 20px;
+    padding: 0;
+}
+
+/* 버튼 스타일 */
+.checkout-btn {
+    padding: 12px 20px;
+    background-color: #5f87c2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #3d6ca3;
+}
+
+.remove-btn {
+    background-color: #4a6d8c;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+    background-color: #3d5b74;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .cart-container {
+        flex-direction: column;  /* 작은 화면에서는 세로로 배치 */
+        width: 95%;
+        padding: 5px;
+    }
+
+    .cart {
+        width: 100%; /* 장바구니 영역 100% */
+        padding: 0;
+    }
+
+    .order {
+        width: 100%; /* 주문하기 영역 100% */
+        margin: 0 auto 5px auto;
+        padding: 20px;
+    }
+}
