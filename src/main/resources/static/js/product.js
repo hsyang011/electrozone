@@ -38,6 +38,7 @@ function addReview(event) {
     });
     const success = () => {
         alert('등록 완료되었습니다.');
+        location.reload();
     };
     const fail = () => {
         alert('등록 실패했습니다.');
