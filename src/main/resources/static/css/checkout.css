@@ -1,0 +1,110 @@
+/* 주문 페이지 스타일 */
+.order-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 60px auto 30px auto;
+    padding: 5px 15px 15px 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.order-summary {
+    width: 70%;  /* 주문 내역 영역 */
+    padding: 0 20px 20px 20px;
+}
+
+.order-details {
+    width: 30%;  /* 주문 상세 영역 */
+    padding: 20px;
+    background-color: #ececec;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    margin: 30px 20px 20px 20px;
+    color: #5f87c2;
+}
+
+.order-title {
+    font-size: 24px;
+    color: #5f87c2;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table th, .order-table td {
+    padding: 15px;
+    text-align: center;
+}
+
+.order-table th {
+    background-color: #5f87c2;
+    color: white;
+    font-weight: bold;
+}
+
+#order-items img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+form .form-group {
+    margin-bottom: 20px;
+}
+
+form .form-group label {
+    display: block;
+    font-weight: bold;
+}
+
+form .form-group input, form .form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.checkout-btn {
+    padding: 12px 20px;
+    background-color: #5f87c2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #3d6ca3;
+}
+
+@media (max-width: 768px) {
+    .order-container {
+        flex-direction: column;
+        width: 95%;
+        padding: 5px;
+    }
+
+    .order-summary {
+        width: 100%;
+        padding: 0;
+    }
+
+    .order-details {
+        width: 100%; /* 주문하기 영역 100% */
+        margin: 0 auto 5px auto;
+        padding: 20px;
+    }
+}
