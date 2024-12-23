@@ -20,6 +20,7 @@ public class ProductApiController {
 
     private final ProductService productService;
 
+    // 상품에 대한 리뷰 작성
     @PostMapping("/api/products/{productId}/reviews")
     public ResponseEntity<AddReviewResponse> addReview(@PathVariable("productId") Long productId, @RequestBody AddReviewRequest request, Principal principal) {
         Review savedReview = productService.addReview(productId, request, principal.getName());

@@ -124,4 +124,9 @@ public class ProductService {
         return reviewRepository.save(request.toEntity(user, product));
     }
 
+    // 상품에 대한 리뷰를 가져옵니다.
+    public List<Review> findByProduct(Product product) {
+        return reviewRepository.findByProduct(product);
+    }
+
 }
