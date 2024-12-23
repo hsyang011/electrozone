@@ -5,8 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.domain.Category;
 import me.yangsongi.electrozone.domain.Product;
+import me.yangsongi.electrozone.domain.Review;
+import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.dto.AddProductRequest;
+import me.yangsongi.electrozone.dto.AddReviewRequest;
 import me.yangsongi.electrozone.repository.ProductRepository;
+import me.yangsongi.electrozone.repository.ReviewRepository;
+import me.yangsongi.electrozone.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +29,8 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ObjectMapper objectMapper;
+    private final UserRepository userRepository;
+    private final ReviewRepository reviewRepository;
 
     // dataset내부의 json파일을 읽어들여 상품에 반영합니다.
     @Transactional
@@ -105,6 +112,16 @@ public class ProductService {
     // 인기상품 6개를 가져옵니다.
     public List<Product> getTop12PopularProducts(Category category) {
         return productRepository.findTop12ByCategory(category);
+    }
+
+    public Review addReview(Long productId, AddReviewRequest request, String email) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + productId));
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + email));
+
+        return reviewRepository.save(request.toEntity(user, product));
     }
 
 }
