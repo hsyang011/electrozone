@@ -39,7 +39,6 @@ public class OrderItem {
     private LocalDateTime updatedAt;  // 주문 상세 수정 시간입니다.
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "order_id")
     private Order order;  // 주문과의 N:1 단방향 관계입니다.
 
@@ -47,5 +46,12 @@ public class OrderItem {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "product_id")
     private Product product;  // 상품과의 N:1 단방향 관계입니다.
+
+    public OrderItem(CartItem cartItem, Order order) {
+        this.quantity = cartItem.getQuantity();
+        this.price = cartItem.getProduct().getPrice();
+        this.order = order;
+        this.product = cartItem.getProduct();
+    }
 
 }

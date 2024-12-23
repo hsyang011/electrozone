@@ -3,12 +3,10 @@ package me.yangsongi.electrozone.service;
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.domain.CartItem;
 import me.yangsongi.electrozone.domain.Order;
+import me.yangsongi.electrozone.domain.OrderItem;
 import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.dto.OrderProcessRequest;
-import me.yangsongi.electrozone.repository.CartItemRepository;
-import me.yangsongi.electrozone.repository.CartRepository;
-import me.yangsongi.electrozone.repository.OrderRepository;
-import me.yangsongi.electrozone.repository.UserRepository;
+import me.yangsongi.electrozone.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +19,7 @@ public class OrderService {
 
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
+    private final OrderItemRepository orderItemRepository;
     private final CartRepository cartRepository;
 
     public boolean payment(String paymentMethod, int totalPrice) {
@@ -49,7 +48,12 @@ public class OrderService {
                 .build();
 
         Order savedOrder = orderRepository.save(order);
+        List<OrderItem> orderItems = cartItems.stream()
+                        .map((cartItem -> new OrderItem(cartItem, savedOrder)))
+                        .toList();
+        orderItemRepository.saveAll(orderItems);
         cartRepository.deleteByUser(user);
+
         return savedOrder;
     }
 

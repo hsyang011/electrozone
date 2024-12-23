@@ -22,7 +22,6 @@ public class CartItem {
     private Integer quantity;  // 상품 수량입니다.
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "cart_id")
     private Cart cart;  // 장바구니와의 N:1 단방향 관계입니다.
 
