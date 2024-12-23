@@ -75,7 +75,7 @@
         </div>
 
         <h3>리뷰 작성</h3>
-        <form action="/api/reviews" method="post" onsubmit="addReview(event)">
+        <form th:action="'/api/products/' + ${product.productId} + '/reviews'" method="post" onsubmit="addReview(event)">
             <input type="hidden" name="productId" th:value="${product.productId}">
             <textarea name="content" rows="5" placeholder="리뷰를 작성해주세요."></textarea>
             <button type="submit">등록</button>

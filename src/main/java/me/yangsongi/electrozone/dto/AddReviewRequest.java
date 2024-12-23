@@ -5,7 +5,6 @@ import me.yangsongi.electrozone.domain.Review;
 import me.yangsongi.electrozone.domain.User;
 
 public record AddReviewRequest(
-        Long productId,
         String content
 ) {
 
