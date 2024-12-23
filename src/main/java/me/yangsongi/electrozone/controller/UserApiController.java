@@ -46,6 +46,7 @@ public class UserApiController {
     @GetMapping("/logout")
     public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+
         return ResponseEntity.status(HttpStatus.OK).build(); // 200 OK 상태 코드 반환
     }
     
