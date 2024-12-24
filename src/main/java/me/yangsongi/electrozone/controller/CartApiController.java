@@ -5,10 +5,10 @@ import me.yangsongi.electrozone.domain.CartItem;
 import me.yangsongi.electrozone.dto.AddToCartRequest;
 import me.yangsongi.electrozone.dto.AddToCartResponse;
 import me.yangsongi.electrozone.dto.CartViewResponse;
+import me.yangsongi.electrozone.dto.UpdateCartItemRequest;
 import me.yangsongi.electrozone.service.CartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -36,6 +36,13 @@ public class CartApiController {
                 .toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(cartItems);
+    }
+
+    @PutMapping("/api/cart/{cartItemId}")
+    public ResponseEntity<Void> updateCartItem(@PathVariable("cartItemId") Long cartItemId, @RequestBody UpdateCartItemRequest request) {
+        cartService.updateCartItem(cartItemId, request);
+
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/api/cart/{cartItemId}")

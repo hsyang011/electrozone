@@ -4,15 +4,17 @@ window.onload = () => {
         response.json().then(orderItems => {
             orderItems.forEach(orderItem => {
                 htmlContent += `
-                    <tr>
-                        <td>${orderItem.name}</td>
-                        <td><img src="${orderItem.imageUrl}" alt="상품 이미지" class="order-item-image"></td>
-                        <td>${orderItem.quantity}</td>
-                        <td>&#8361;${orderItem.price.toLocaleString()}원</td>
-                    </tr>
+                    <div class="order-item">
+                        <img src="${orderItem.imageUrl}" alt="상품 이미지">
+                        <div class="order-details">
+                            <p>상품명 : ${orderItem.name}</p>
+                            <p>수량 : ${orderItem.quantity}</p>
+                            <p>가격 : &#8361;${orderItem.price.toLocaleString()}원</p>
+                        </div>
+                    </div>
                 `;
             });
-            document.getElementById('order-items').innerHTML = htmlContent;
+            document.getElementById('order-item').innerHTML = htmlContent;
         });
     };
 
@@ -24,14 +26,14 @@ window.onload = () => {
     httpRequest('GET', '/api/cart', null, success, fail);
 };
 
-function checkout(event) {
-    event.preventDefault();
-    const form = event.target;
+function checkout() {
+    const form = document.checkoutForm;
 
     const body = JSON.stringify({
-        name: form.name.value,
+        recipient: form.recipient.value,
         address: form.address.value,
-        paymentMethod: form.paymentMethod.value
+        phone: form.phone.value,
+        paymentMethod: document.getElementById('payment-method').value
     });
 
     const success = (response) => {

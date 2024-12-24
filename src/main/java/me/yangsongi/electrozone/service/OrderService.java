@@ -39,9 +39,10 @@ public class OrderService {
 
         Order order = Order.builder()
                 .user(user)
-                .name(request.name())
+                .recipient(request.recipient())
                 .paymentMethod(request.paymentMethod())
                 .address(request.address())
+                .phone(request.phone())
                 .orderDate(LocalDateTime.now())
                 .totalAmount(cartItems.stream().mapToInt(cartItem -> cartItem.getProduct().getPrice() * cartItem.getQuantity()).sum())
                 .status("결제완료")

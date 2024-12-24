@@ -1,110 +1,126 @@
-/* 주문 페이지 스타일 */
-.order-container {
+/* 기본적인 레이아웃 */
+.checkout-container {
     display: flex;
-    gap: 20px;
-    width: 100%;
+    gap: 30px;
+    margin: 30px auto;
+    padding: 20px;
     max-width: 1200px;
-    margin: 60px auto 30px auto;
-    padding: 5px 15px 15px 15px;
-    background-color: #ffffff;
+}
+
+/* 주문자 및 배송지 정보 */
+.checkout-left {
+    flex: 3;
+    padding: 20px;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-left h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #5F87C2; /* ElectroZone 기본 색상 */
+}
+
+.checkout-left p,
+.checkout-left label {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.checkout-left input,
+.checkout-left textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
     font-size: 14px;
 }
 
-.order-summary {
-    width: 70%;  /* 주문 내역 영역 */
-    padding: 0 20px 20px 20px;
+.checkout-left textarea {
+    height: 100px;
 }
 
-.order-details {
-    width: 30%;  /* 주문 상세 영역 */
+/* 주문 상품 정보 */
+.order-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.order-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.order-details p {
+    font-size: 14px;
+    color: #333;
+}
+
+/* 결제 정보 */
+.checkout-right {
+    flex: 1;
     padding: 20px;
     background-color: #ececec;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-right h2,
+.checkout-right h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #5F87C2;
+}
+
+.checkout-right p {
     font-size: 16px;
-    margin: 30px 20px 20px 20px;
-    color: #5f87c2;
+    margin-bottom: 10px;
+    color: #333;
 }
 
-.order-title {
-    font-size: 24px;
-    color: #5f87c2;
-    font-weight: bold;
-    text-align: center;
-    padding-bottom: 20px;
-}
-
-.order-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.order-table th, .order-table td {
-    padding: 15px;
-    text-align: center;
-}
-
-.order-table th {
-    background-color: #5f87c2;
-    color: white;
-    font-weight: bold;
-}
-
-#order-items img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-}
-
-form .form-group {
-    margin-bottom: 20px;
-}
-
-form .form-group label {
-    display: block;
-    font-weight: bold;
-}
-
-form .form-group input, form .form-group select {
+.checkout-right select {
     width: 100%;
     padding: 10px;
-    font-size: 16px;
+    margin-bottom: 20px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
+    font-size: 14px;
 }
 
+/* 버튼 스타일 */
 .checkout-btn {
     padding: 12px 20px;
-    background-color: #5f87c2;
+    background-color: #5F87C2; /* ElectroZone 기본 버튼 색상 */
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .checkout-btn:hover {
-    background-color: #3d6ca3;
+    background-color: #3D6CA3; /* ElectroZone hover 색상 */
+    transform: scale(1.05);
 }
 
+/* 반응형 디자인 */
 @media (max-width: 768px) {
-    .order-container {
+    .checkout-container {
         flex-direction: column;
-        width: 95%;
-        padding: 5px;
-    }
-
-    .order-summary {
         width: 100%;
-        padding: 0;
+        padding: 20px;
     }
 
-    .order-details {
-        width: 100%; /* 주문하기 영역 100% */
-        margin: 0 auto 5px auto;
-        padding: 20px;
+    .checkout-left,
+    .checkout-right {
+        width: 100%;
+        margin-bottom: 30px;
     }
 }

@@ -1,7 +1,8 @@
 package me.yangsongi.electrozone.dto;
 
 public record OrderProcessRequest(
-        String name,
+        String recipient,
         String address,
+        String phone,
         String paymentMethod
 ) { }

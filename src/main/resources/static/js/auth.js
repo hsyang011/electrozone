@@ -11,7 +11,7 @@ function login(event) {
     const form = event.target;
 
     fetch(form.action, {
-        method: 'POST',
+        method: form.method,
         body: new FormData(form), // 폼 데이터를 보내는 방식
         credentials: 'same-origin'  // Same-origin policy를 따르기
     }).then(response => {

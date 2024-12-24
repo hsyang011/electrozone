@@ -7,9 +7,13 @@ window.onload = () => {
                totalPrice += cartItem.price;
                htmlContent += `
                    <tr>
-                        <td>${cartItem.name}</td>
+                        <td onclick="location.href='/products/${cartItem.productId}'" style="cursor: pointer;">${cartItem.name}</td>
                         <td><img src="${cartItem.imageUrl}" alt="상품 이미지" class="cart-item-image"></td>
-                        <td>${cartItem.quantity}</td>
+                        <td>
+                            <button class="quantity-btn" onclick="updateQuantity('${cartItem.cartItemId}', ${cartItem.quantity - 1})">-</button>
+                            <span class="quantity">${cartItem.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity('${cartItem.cartItemId}', ${cartItem.quantity + 1})">+</button>
+                        </td>
                         <td>&#8361;${cartItem.price.toLocaleString()}원</td>
                         <td><button class="remove-btn" onclick="deleteCartItem('${cartItem.name}', ${cartItem.cartItemId})">삭제</button></td>
                    </tr>
@@ -24,6 +28,27 @@ window.onload = () => {
     }
 
     httpRequest('GET', '/api/cart', null, success, fail);
+}
+
+// 수량 변경 API 호출
+function updateQuantity(cartItemId, newQuantity) {
+    if (newQuantity < 1) {
+        alert('수량은 1개 이상이어야 합니다.');
+        return;
+    }
+    // 수량 업데이트를 위한 API 호출
+    const body = JSON.stringify({
+        quantity: newQuantity
+    });
+
+    const success = () => {
+        window.onload();
+    }
+    const fail = () => {
+        alert('수량 변경에 실패했습니다.');
+    }
+
+    httpRequest('PUT', `/api/cart/${cartItemId}`, body, success, fail);
 }
 
 function deleteCartItem(name, cartItemId) {
