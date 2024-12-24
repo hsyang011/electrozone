@@ -21,4 +21,9 @@ public class UserViewController {
         return "find-user";
     }
 
+    @GetMapping("/mypage")
+    public String mypage() {
+        return "mypage";
+    }
+
 }
