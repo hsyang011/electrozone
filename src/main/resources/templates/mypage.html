@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELECTRO ZONE - 마이페이지</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/mypage.css">
+</head>
+<body>
+<div class="container">
+    <!-- 상단 링크 영역 -->
+    <div th:replace="~{fragments/top-links.html}"></div>
+
+    <!-- 헤더 영역 -->
+    <header th:replace="~{fragments/header.html}"></header>
+
+    <!-- 마이페이지 본문 -->
+    <section class="mypage-container">
+        <h2>마이페이지</h2>
+
+        <!-- 유저 정보 -->
+        <div class="user-info">
+            <h3>회원 정보</h3>
+<!--            <p><strong>이름:</strong> <span th:text="${user.name}"></span></p>-->
+<!--            <p><strong>이메일:</strong> <span th:text="${user.email}"></span></p>-->
+<!--            <p><strong>가입일:</strong> <span th:text="${user.joinDate}"></span></p>-->
+            <p><strong>이름:</strong> <span>닉네임</span></p>
+            <p><strong>이메일:</strong> <span>이메일</span></p>
+            <p><strong>가입일:</strong> <span>가입일</span></p>
+        </div>
+
+        <!-- 주문 내역 -->
+        <div class="order-history">
+            <h3>주문 내역</h3>
+<!--            <div class="order-item" th:each="order : ${orderList}">-->
+<!--                <img th:src="${order.productImageUrl}" alt="상품 이미지" class="product-image">-->
+<!--                <div class="order-details">-->
+<!--                    <p><strong>상품명:</strong> <span th:text="${order.productName}"></span></p>-->
+<!--                    <p><strong>가격:</strong> <span th:text="${order.price}"></span>원</p>-->
+<!--                    <p><strong>주문일:</strong> <span th:text="${order.orderDate}"></span></p>-->
+<!--                    <p><strong>상태:</strong> <span th:text="${order.status}"></span></p>-->
+<!--                    <a th:href="'/orders/' + ${order.orderId}" class="btn">상세보기</a>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; 취소 및 반품 버튼 &ndash;&gt;-->
+<!--                <div class="order-actions">-->
+<!--                    <button class="cancel-btn" th:if="${order.status == '주문 접수'}"-->
+<!--                            th:onclick="'cancelOrder(' + ${order.orderId} + ')'">취소</button>-->
+<!--                    <button class="return-btn" th:if="${order.status == '배송 완료'}"-->
+<!--                            th:onclick="'returnOrder(' + ${order.orderId} + ')'">반품</button>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="order-item">
+                <img src="" alt="상품 이미지" class="product-image">
+                <div class="order-details">
+                    <p><strong>상품명:</strong> <span>상품명</span></p>
+                    <p><strong>가격:</strong> <span>가격</span>원</p>
+                    <p><strong>주문일:</strong> <span>주문일</span></p>
+                    <p><strong>상태:</strong> <span>주문상태</span></p>
+                </div>
+                <!-- 취소 및 반품 버튼 -->
+                <div class="order-actions">
+<!--                    <button class="cancel-btn" th:if="${order.status == '주문 접수'}"-->
+<!--                            th:onclick="'cancelOrder(' + ${order.orderId} + ')'">취소</button>-->
+<!--                    <button class="return-btn" th:if="${order.status == '배송 완료'}"-->
+<!--                            th:onclick="'returnOrder(' + ${order.orderId} + ')'">반품</button>-->
+                    <button class="detail-btn">상세보기</button>
+                    <button class="cancel-btn">취소</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 영역 -->
+    <footer th:replace="~{fragments/footer.html}"></footer>
+</div>
+
+<script src="/js/request.js"></script>
+<script src="/js/mypage.js"></script>
+</body>
+</html>
