@@ -3,72 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELECTRO ZONE 플랫폼</title>
+    <title>ELECTRO ZONE - 주문하기</title>
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/table.css">
     <link rel="stylesheet" href="/css/checkout.css">
+    <link rel="stylesheet" href="/css/form.css">
 </head>
 <body>
 <div class="container">
     <!-- 상단 링크 영역 -->
-    <div th:replace="~{fragments/top-links.html}"></div> <!-- 상단 링크 포함 -->
+    <div th:replace="~{fragments/top-links.html}"></div>
 
     <!-- 헤더 영역 -->
-    <header th:replace="~{fragments/header.html}"></header> <!-- 헤더 포함 -->
+    <header th:replace="~{fragments/header.html}"></header>
 
-    <!-- 주문 테이블 -->
-    <section class="order-container">
-        <div class="order-summary">
-            <table class="order-table">
-                <thead>
-                <tr>
-                    <td colspan="5" class="order-title">주문하기</td>
-                </tr>
-                <tr>
-                    <th>상품명</th>
-                    <th>이미지</th>
-                    <th>수량</th>
-                    <th>가격</th>
-                </tr>
-                </thead>
-                <tbody id="order-items">
-                </tbody>
-            </table>
+    <section class="checkout-container">
+        <div class="checkout-left">
+            <h2>배송지 정보</h2>
+            <form action="/api/checkout" method="POST" name="checkoutForm">
+                <label for="recipient">받는 분</label>
+                <input type="text" id="recipient" name="recipient" placeholder="받는 분을 입력하세요">
+
+                <label for="address">주소</label>
+                <input type="text" id="address" name="address" placeholder="주소를 입력하세요">
+
+                <label for="phone">전화번호</label>
+                <input type="tel" id="phone" name="phone" placeholder="전화번호를 입력하세요">
+
+                <h2>주문 상품</h2>
+                <div id="order-item"></div>
+            </form>
         </div>
 
-        <div class="order-details">
-            <form action="/api/checkout" method="POST" id="order-form" onsubmit="checkout(event)">
-                <div class="form-group">
-                    <label for="name">이름</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
+        <div class="checkout-right">
+            <h2>주문결제 금액</h2>
+            <p><strong>상품금액:</strong> 88,700원</p>
+            <p><strong>배송비:</strong> 3,000원</p>
+            <p><strong>총 결제 금액:</strong> 91,700원</p>
 
-                <div class="form-group">
-                    <label for="address">주소</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
+            <h3>결제 방법</h3>
+            <select name="payment-method" id="payment-method">
+                <option value="kakao-pay">카카오 페이</option>
+                <option value="naver-pay">네이버 페이</option>
+                <option value="credit-card">신용카드</option>
+            </select>
 
-                <div class="form-group">
-                    <label for="payment-method">결제 방법</label>
-                    <select id="payment-method" name="paymentMethod" required>
-                        <option value="kakao-pay">카카오페이</option>
-                        <option value="toss-pay">토스페이</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="checkout-btn">결제 진행</button>
-                </div>
-            </form>
+            <button class="checkout-btn" onclick="checkout()">결제하기</button>
         </div>
     </section>
 
     <!-- 푸터 영역 -->
-    <footer th:replace="~{fragments/footer.html}"></footer> <!-- 푸터 포함 -->
+    <footer th:replace="~{fragments/footer.html}"></footer>
 </div>
 
 <script src="/js/request.js"></script>
-<script src="/js/order.js"></script>
+<script src="/js/checkout.js"></script>
 </body>
 </html>

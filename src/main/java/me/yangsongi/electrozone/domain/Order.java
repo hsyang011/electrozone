@@ -25,14 +25,17 @@ public class Order {
     @Column(name = "order_id")
     private Long orderId;  // 주문 고유 ID입니다.
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "recipient", nullable = false)
+    private String recipient;
 
     @Column(name = "payment_method", nullable = false)
     private String paymentMethod;
 
     @Column(name = "address", nullable = false)
     private String address;
+
+    @Column(name = "phone", nullable = false)
+    private String phone;
 
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;  // 주문 날짜입니다.

@@ -6,6 +6,7 @@ import me.yangsongi.electrozone.domain.CartItem;
 import me.yangsongi.electrozone.domain.Product;
 import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.dto.AddToCartRequest;
+import me.yangsongi.electrozone.dto.UpdateCartItemRequest;
 import me.yangsongi.electrozone.repository.CartItemRepository;
 import me.yangsongi.electrozone.repository.CartRepository;
 import me.yangsongi.electrozone.repository.ProductRepository;
@@ -74,6 +75,15 @@ public class CartService {
                         .build()));
 
         return cart.getCartItems();
+    }
+
+    @Transactional
+    public void updateCartItem(Long cartItemId, UpdateCartItemRequest request) {
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + cartItemId));
+
+        authorizeUser(cartItem);
+        cartItem.updateQuantity(request.quantity());
     }
 
     public void deleteCartItem(Long cartItemId) {
