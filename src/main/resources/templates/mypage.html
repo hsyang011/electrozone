@@ -21,7 +21,7 @@
         <h2>마이페이지</h2>
 
         <!-- 유저 정보 -->
-        <div class="user-info">
+        <div class="user-info" id="user-info">
             <h3>회원 정보</h3>
 <!--            <p><strong>이름:</strong> <span th:text="${user.name}"></span></p>-->
 <!--            <p><strong>이메일:</strong> <span th:text="${user.email}"></span></p>-->
@@ -51,22 +51,24 @@
 <!--                            th:onclick="'returnOrder(' + ${order.orderId} + ')'">반품</button>-->
 <!--                </div>-->
 <!--            </div>-->
-            <div class="order-item">
-                <img src="" alt="상품 이미지" class="product-image">
-                <div class="order-details">
-                    <p><strong>상품명:</strong> <span>상품명</span></p>
-                    <p><strong>가격:</strong> <span>가격</span>원</p>
-                    <p><strong>주문일:</strong> <span>주문일</span></p>
-                    <p><strong>상태:</strong> <span>주문상태</span></p>
-                </div>
-                <!-- 취소 및 반품 버튼 -->
-                <div class="order-actions">
-<!--                    <button class="cancel-btn" th:if="${order.status == '주문 접수'}"-->
-<!--                            th:onclick="'cancelOrder(' + ${order.orderId} + ')'">취소</button>-->
-<!--                    <button class="return-btn" th:if="${order.status == '배송 완료'}"-->
-<!--                            th:onclick="'returnOrder(' + ${order.orderId} + ')'">반품</button>-->
-                    <button class="detail-btn">상세보기</button>
-                    <button class="cancel-btn">취소</button>
+            <div id="order-list">
+                <div class="order-item">
+                    <img src="" alt="상품 이미지" class="product-image">
+                    <div class="order-details">
+                        <p><strong>상품명:</strong> <span>상품명</span></p>
+                        <p><strong>가격:</strong> <span>가격</span>원</p>
+                        <p><strong>주문일:</strong> <span>주문일</span></p>
+                        <p><strong>상태:</strong> <span>주문상태</span></p>
+                    </div>
+                    <!-- 취소 및 반품 버튼 -->
+                    <div class="order-actions">
+                        <!--                    <button class="cancel-btn" th:if="${order.status == '주문 접수'}"-->
+                        <!--                            th:onclick="'cancelOrder(' + ${order.orderId} + ')'">취소</button>-->
+                        <!--                    <button class="return-btn" th:if="${order.status == '배송 완료'}"-->
+                        <!--                            th:onclick="'returnOrder(' + ${order.orderId} + ')'">반품</button>-->
+                        <button class="detail-btn">상세보기</button>
+                        <button class="cancel-btn">취소</button>
+                    </div>
                 </div>
             </div>
         </div>

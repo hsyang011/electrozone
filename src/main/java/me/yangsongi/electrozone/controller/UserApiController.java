@@ -4,7 +4,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import me.yangsongi.electrozone.domain.Order;
+import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.dto.AddUserRequest;
+import me.yangsongi.electrozone.dto.MyPageViewResponse;
+import me.yangsongi.electrozone.dto.OrderViewResponse;
+import me.yangsongi.electrozone.service.OrderService;
 import me.yangsongi.electrozone.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,6 +29,7 @@ import java.util.List;
 public class UserApiController {
     
     private final UserService userService;
+    private final OrderService orderService;
 
     @PostMapping("/join")
     public ResponseEntity<?> signup(@Valid AddUserRequest request, BindingResult bindingResult) {
@@ -48,6 +55,17 @@ public class UserApiController {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
 
         return ResponseEntity.status(HttpStatus.OK).build(); // 200 OK 상태 코드 반환
+    }
+
+    @GetMapping("/api/mypage")
+    public ResponseEntity<MyPageViewResponse> getAllOrders(Principal principal) {
+        User user = userService.findByEmail(principal.getName());
+
+        List<OrderViewResponse> orders = orderService.getAllOrders(principal.getName()).stream()
+                .map(OrderViewResponse::new)
+                .toList();
+
+        return ResponseEntity.ok().body(new MyPageViewResponse(user, orders));
     }
     
 }

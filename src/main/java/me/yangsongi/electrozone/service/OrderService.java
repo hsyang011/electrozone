@@ -58,4 +58,14 @@ public class OrderService {
         return savedOrder;
     }
 
+    public List<Order> getAllOrders(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        List<Order> orders = orderRepository.findByUserOrderByOrderDateDesc(user)
+                .orElseThrow(() -> new IllegalArgumentException("주문 내역을 찾을 수 없습니다."));
+
+        return orders;
+    }
+
 }
