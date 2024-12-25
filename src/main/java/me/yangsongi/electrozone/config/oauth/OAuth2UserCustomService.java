@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import me.yangsongi.electrozone.domain.Role;
+import me.yangsongi.electrozone.domain.UserRole;
 import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -66,7 +66,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
                             .email(email)
                             .name(name)
                             .nickname(name)
-                            .role(Role.USER)
+                            .userRole(UserRole.USER)
                             .password(generateRandomPassword());
                     addProviderIdToBuilder(userBuilder, provider, attributes);
                     return userBuilder.build();

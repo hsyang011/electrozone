@@ -5,12 +5,11 @@ import me.yangsongi.electrozone.domain.CartItem;
 import me.yangsongi.electrozone.domain.Order;
 import me.yangsongi.electrozone.dto.OrderProcessRequest;
 import me.yangsongi.electrozone.dto.OrderProcessResponse;
+import me.yangsongi.electrozone.dto.OrderStatusResponse;
 import me.yangsongi.electrozone.service.CartService;
 import me.yangsongi.electrozone.service.OrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -24,11 +23,10 @@ public class OrderApiController {
 
     @PostMapping("/api/checkout")
     public ResponseEntity<OrderProcessResponse> orderProcess(@RequestBody OrderProcessRequest request, Principal principal) {
-
         try {
             // 사용자 정보를 기반으로 주문 생성
             List<CartItem> cartItems = cartService.getCartItems(principal.getName());
-            int totalPrice = cartItems.stream().mapToInt(cartItem -> cartItem.getProduct().getPrice() * cartItem.getQuantity()).sum();
+            int totalPrice = request.payment();
 
             // 결제 서비스에서 실제 결제 처리 (예시로 카드 결제)
             boolean paymentSuccess = orderService.payment(request.paymentMethod(), totalPrice);
@@ -43,7 +41,22 @@ public class OrderApiController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
 
+    // 주문 취소
+    @PostMapping("/api/order/{orderId}/cancel")
+    public ResponseEntity<OrderStatusResponse> cancelOrder(@PathVariable("orderId") Long orderId, Principal principal) {
+        Order order = orderService.cancelOrder(orderId);
+
+        return ResponseEntity.ok().body(new OrderStatusResponse(order));
+    }
+
+    // 반품 처리
+    @PostMapping("/api/order/{orderId}/return")
+    public ResponseEntity<OrderStatusResponse> returnOrder(@PathVariable("orderId") Long orderId, Principal principal) {
+        Order order = orderService.requestReturnOrder(orderId);
+
+        return ResponseEntity.ok().body(new OrderStatusResponse(order));
     }
 
 }

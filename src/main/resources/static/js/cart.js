@@ -4,7 +4,7 @@ window.onload = () => {
         let totalPrice = 0;
         response.json().then(cartItems => {
            cartItems.forEach(cartItem => {
-               totalPrice += cartItem.price;
+               totalPrice += cartItem.price * cartItem.quantity;
                htmlContent += `
                    <tr>
                         <td onclick="location.href='/products/${cartItem.productId}'" style="cursor: pointer;">${cartItem.name}</td>
@@ -14,7 +14,7 @@ window.onload = () => {
                             <span class="quantity">${cartItem.quantity}</span>
                             <button class="quantity-btn" onclick="updateQuantity('${cartItem.cartItemId}', ${cartItem.quantity + 1})">+</button>
                         </td>
-                        <td>&#8361;${cartItem.price.toLocaleString()}원</td>
+                        <td>&#8361;${(cartItem.price * cartItem.quantity).toLocaleString()}원</td>
                         <td><button class="remove-btn" onclick="deleteCartItem('${cartItem.name}', ${cartItem.cartItemId})">삭제</button></td>
                    </tr>
                `;

@@ -44,7 +44,7 @@ public class User implements UserDetails {
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
-    private Role role;  // 사용자 역할입니다.
+    private UserRole userRole;  // 사용자 역할입니다.
 
     @CreatedDate
     @Column(name = "created_at")

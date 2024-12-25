@@ -64,4 +64,15 @@ public class Product {
         return this;
     }
 
+    public void decreaseStock(Integer quantity) {
+        if (this.stock < quantity) {
+            throw new IllegalArgumentException("재고가 부족합니다.");
+        }
+        this.stock -= quantity;
+    }
+
+    public void increaseStock(Integer quantity) {
+        this.stock += quantity;
+    }
+
 }

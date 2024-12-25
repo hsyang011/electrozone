@@ -1,6 +1,6 @@
 package me.yangsongi.electrozone.service;
 
-import me.yangsongi.electrozone.domain.Role;
+import me.yangsongi.electrozone.domain.UserRole;
 import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.dto.AddUserRequest;
 import me.yangsongi.electrozone.repository.UserRepository;
@@ -58,7 +58,7 @@ public class UserServiceTest {
                 .nickname("testUser")
                 .password("password")
                 .phone("010-1234-5678")
-                .role(Role.USER)
+                .userRole(UserRole.USER)
                 .build());
 
         // when

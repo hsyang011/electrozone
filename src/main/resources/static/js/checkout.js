@@ -1,9 +1,13 @@
+let payment = 0;
+
 window.onload = () => {
     const success = (response) => {
-        let htmlContent = '';
+        let orderItemHtmlContent = '';
+        let paymentHtmlContent = '';
         response.json().then(orderItems => {
             orderItems.forEach(orderItem => {
-                htmlContent += `
+                payment += orderItem.price * orderItem.quantity;
+                orderItemHtmlContent += `
                     <div class="order-item">
                         <img src="${orderItem.imageUrl}" alt="상품 이미지">
                         <div class="order-details">
@@ -14,7 +18,13 @@ window.onload = () => {
                     </div>
                 `;
             });
-            document.getElementById('order-item').innerHTML = htmlContent;
+            paymentHtmlContent = `
+                <p><strong>상품금액:</strong> ${payment.toLocaleString()}원</p>
+                <p><strong>배송비:</strong> 3,000원</p>
+                <p><strong>총 결제 금액:</strong> ${(payment + 3000).toLocaleString()}원</p>
+            `
+            document.getElementById('order-item').innerHTML = orderItemHtmlContent;
+            document.getElementById('payment').innerHTML = paymentHtmlContent;
         });
     };
 
@@ -33,6 +43,7 @@ function checkout() {
         recipient: form.recipient.value,
         address: form.address.value,
         phone: form.phone.value,
+        payment: payment+3000,
         paymentMethod: document.getElementById('payment-method').value
     });
 

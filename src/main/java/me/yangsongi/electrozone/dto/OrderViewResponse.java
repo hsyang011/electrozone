@@ -2,7 +2,7 @@ package me.yangsongi.electrozone.dto;
 
 
 import me.yangsongi.electrozone.domain.Order;
-import me.yangsongi.electrozone.domain.OrderItem;
+import me.yangsongi.electrozone.domain.OrderStatus;
 import me.yangsongi.electrozone.domain.User;
 
 import java.time.LocalDateTime;
@@ -10,21 +10,23 @@ import java.util.List;
 
 public record OrderViewResponse(
         User user,
-        Integer totalAmount,
+        Long orderId,
+        Integer payment,
         List<OrderItemViewResponse> orderItems,
         LocalDateTime orderDate,
-        String status
+        OrderStatus orderStatus
 ) {
 
     public OrderViewResponse(Order order) {
         this(
                 order.getUser(),
-                order.getTotalAmount(),
+                order.getOrderId(),
+                order.getPayment(),
                 order.getOrderItems().stream()
                         .map(OrderItemViewResponse::new)
                         .toList(),
                 order.getOrderDate(),
-                order.getStatus()
+                order.getOrderStatus()
         );
     }
 

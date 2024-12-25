@@ -2,7 +2,7 @@ package me.yangsongi.electrozone.service;
 
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.domain.User;
-import me.yangsongi.electrozone.domain.Role;
+import me.yangsongi.electrozone.domain.UserRole;
 import me.yangsongi.electrozone.dto.AddUserRequest;
 import me.yangsongi.electrozone.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,7 +44,7 @@ public class UserService {
         }
 
         // 사용자 ROLE 확인 (관리자 기능은 추후에 추가합니다.)
-        Role role = Role.USER;
+        UserRole userRole = UserRole.USER;
 
         return userRepository.save(User.builder()
                 .email(email)
@@ -52,7 +52,7 @@ public class UserService {
                 .nickname(nickname)
                 .password(password)
                 .phone(phone)
-                .role(role)
+                .userRole(userRole)
                 .build()).getUserId();
     }
 
