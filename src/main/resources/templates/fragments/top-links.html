@@ -2,8 +2,8 @@
     <a href="/login" id="login-link">로그인</a>
     <a href="/join" id="join-link">회원가입</a>
     <a href="javascript:void(0)" id="logout-link" onclick="logout();">로그아웃</a>
-    <a href="/mypage">마이페이지</a>
-    <a href="/cart">장바구니</a>
+    <a href="/mypage" id="mypage">마이페이지</a>
+    <a href="/cart" id="cart">장바구니</a>
 </div>
 <script src="/js/request.js"></script>
 <script src="/js/auth.js"></script>
@@ -14,9 +14,13 @@
         document.getElementById('login-link').style.display = 'none';
         document.getElementById('join-link').style.display = 'none';
         document.getElementById('logout-link').style.display = 'inline';
+        document.getElementById('mypage').style.display = 'inline';
+        document.getElementById('cart').style.display = 'inline';
     } else {
         document.getElementById('login-link').style.display = 'inline';
         document.getElementById('join-link').style.display = 'inline';
         document.getElementById('logout-link').style.display = 'none';
+        document.getElementById('mypage').style.display = 'none';
+        document.getElementById('cart').style.display = 'none';
     }
 </script>

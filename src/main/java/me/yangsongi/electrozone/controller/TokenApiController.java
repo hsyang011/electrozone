@@ -27,7 +27,7 @@ public class TokenApiController {
     }
 
     @DeleteMapping("/api/refresh-token")
-    public ResponseEntity deleteRefreshToken() {
+    public ResponseEntity<Void> deleteRefreshToken() {
         refreshTokenService.delete();
 
         return ResponseEntity.ok()

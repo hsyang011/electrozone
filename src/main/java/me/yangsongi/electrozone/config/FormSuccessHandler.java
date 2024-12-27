@@ -20,8 +20,8 @@ public class FormSuccessHandler implements AuthenticationSuccessHandler {
 
     // Header KEY 값
     public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
-    public static final Duration ACCESS_TOKEN_DURATION = Duration.ofDays(1);
+    public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(1);
+    public static final Duration ACCESS_TOKEN_DURATION = Duration.ofMinutes(30);
 
     private final TokenProvider tokenProvider;
     private final RefreshTokenService refreshTokenService;

@@ -39,7 +39,7 @@ function httpRequest(method, url, body, success, fail) {
                     'Content-Type' : 'application/json',
                 },
                 body : JSON.stringify({
-                    refresh_token : getCookie('refresh_token'),
+                    refreshToken : getCookie('refresh_token'),
                 }),
             }).then(response => {
                 if (response.ok) {
