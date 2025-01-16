@@ -3,9 +3,9 @@ spring:
     name: electrozone
 
   datasource:
-    url: jdbc:mysql://localhost:3306/electrozone
-    username: root
-    password: hs1234
+    url: jdbc:mysql://awseb-e-gqrqrnsj2q-stack-awsebrdsdatabase-hlgrbijrv6ea.cpgy02uoscck.ap-northeast-2.rds.amazonaws.com/electrozone
+    username: ebroot
+    password: electro011
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -54,7 +54,7 @@ spring:
             user-name-attribute: id # 식별자 . 카카오의 경우 "id" 사용
 
 jwt:
-  issuer: "ELECTRO ZONE"
+  issuer: "ELECTROZONE"
   secret_key: "QrOMzASZ3fnq1k1C640LB9u/GnBuacPXZ6mTWHC9hU02ig5q8z7DxZfhoZZBizU0qJFoPihyf0azLfFfgBGRmA=="
 
 # 로그인 인증 정보 디버깅
