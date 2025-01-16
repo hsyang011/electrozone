@@ -27,7 +27,7 @@ spring:
             client-authentication-method: client_secret_post
             client-name: google
             authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:8080/login/oauth2/code/google"  # 구글의 리디렉트 URI
+            redirect-uri: "http://electrozone-env.eba-mn6ctxyx.ap-northeast-2.elasticbeanstalk.com/login/oauth2/code/google"  # 구글의 리디렉트 URI
             scope:
               - email
               - profile
@@ -37,7 +37,7 @@ spring:
             client-authentication-method: client_secret_post
             client-name: kakao
             authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao" # yml 파일에서 {} 가 spring 특수문자로 인식되게 하기 위해 " " 사용
+            redirect-uri: "http://electrozone-env.eba-mn6ctxyx.ap-northeast-2.elasticbeanstalk.com/login/oauth2/code/kakao" # yml 파일에서 {} 가 spring 특수문자로 인식되게 하기 위해 " " 사용
             scope:
               - profile_nickname
               - account_email
