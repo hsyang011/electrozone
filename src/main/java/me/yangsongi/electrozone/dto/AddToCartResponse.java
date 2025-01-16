@@ -1,6 +1,6 @@
 package me.yangsongi.electrozone.dto;
 
 public record AddToCartResponse(
-    String name,
-    Integer quantity
+        String name,
+        Integer quantity
 ) { }

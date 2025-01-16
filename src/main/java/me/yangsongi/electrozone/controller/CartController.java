@@ -33,7 +33,7 @@ public class CartController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new AddToCartResponse(
                 cartItem.getProduct().getName(),
-                cartItem.getQuantity()));
+                request.quantity()));
     }
 
     @GetMapping("/api/cart")

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.domain.Product;
 import me.yangsongi.electrozone.domain.Review;
 import me.yangsongi.electrozone.dto.AddReviewRequest;
-import me.yangsongi.electrozone.dto.AddReviewResponse;
 import me.yangsongi.electrozone.dto.ProductViewResponse;
 import me.yangsongi.electrozone.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -34,10 +33,10 @@ public class ProductController {
     // 상품에 대한 리뷰 작성
     @PostMapping("/api/products/{productId}/reviews")
     @ResponseBody
-    public ResponseEntity<AddReviewResponse> addReview(@PathVariable("productId") Long productId, @RequestBody AddReviewRequest request, Principal principal) {
-        Review savedReview = productService.addReview(productId, request, principal.getName());
+    public ResponseEntity<Void> addReview(@PathVariable("productId") Long productId, @RequestBody AddReviewRequest request, Principal principal) {
+        productService.addReview(productId, request, principal.getName());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new AddReviewResponse(savedReview));
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }

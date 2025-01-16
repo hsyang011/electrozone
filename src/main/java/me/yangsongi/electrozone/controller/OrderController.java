@@ -29,7 +29,7 @@ public class OrderController {
 
     @PostMapping("/api/checkout")
     @ResponseBody
-    public ResponseEntity<OrderProcessResponse> orderProcess(@RequestBody OrderProcessRequest request, Principal principal) {
+    public ResponseEntity<Order> orderProcess(@RequestBody OrderProcessRequest request, Principal principal) {
         try {
             // 사용자 정보를 기반으로 주문 생성
             List<CartItem> cartItems = cartService.getCartItems(principal.getName());
@@ -40,8 +40,8 @@ public class OrderController {
 
             if (paymentSuccess) {
                 // 결제 성공 시 주문 완료 처리
-                Order order = orderService.completeOrder(principal.getName(), request, cartItems);
-                return ResponseEntity.ok().body(new OrderProcessResponse(order.getOrderId(), order.getUser()));
+                Order savedOrder = orderService.completeOrder(principal.getName(), request, cartItems);
+                return ResponseEntity.ok().body(savedOrder);
             } else {
                 return ResponseEntity.unprocessableEntity().build();
             }

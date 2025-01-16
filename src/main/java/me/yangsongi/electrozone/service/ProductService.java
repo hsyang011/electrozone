@@ -114,14 +114,14 @@ public class ProductService {
         return productRepository.findTop12ByCategory(category);
     }
 
-    public Review addReview(Long productId, AddReviewRequest request, String email) {
+    public void addReview(Long productId, AddReviewRequest request, String email) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + productId));
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + email));
 
-        return reviewRepository.save(request.toEntity(user, product));
+        reviewRepository.save(request.toEntity(user, product));
     }
 
     // 상품에 대한 리뷰를 가져옵니다.
