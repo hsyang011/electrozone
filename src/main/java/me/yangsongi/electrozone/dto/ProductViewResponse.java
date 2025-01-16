@@ -1,6 +1,6 @@
 package me.yangsongi.electrozone.dto;
 
-import me.yangsongi.electrozone.domain.Category;
+import me.yangsongi.electrozone.domain.ProductCategory;
 import me.yangsongi.electrozone.domain.Product;
 import me.yangsongi.electrozone.domain.Review;
 
@@ -15,7 +15,7 @@ public record ProductViewResponse(
         String imageUrl,
         Integer stock,
         LocalDateTime registeredAt,
-        Category category,
+        ProductCategory productCategory,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
         List<Review> reviews
@@ -31,7 +31,7 @@ public record ProductViewResponse(
                 product.getImageUrl(),
                 product.getStock(),
                 product.getRegisteredAt(),
-                product.getCategory(),
+                product.getProductCategory(),
                 product.getCreatedAt(),
                 product.getUpdatedAt(),
                 reviews

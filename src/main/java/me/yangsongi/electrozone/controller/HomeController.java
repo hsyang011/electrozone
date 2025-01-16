@@ -1,7 +1,7 @@
 package me.yangsongi.electrozone.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.yangsongi.electrozone.domain.Category;
+import me.yangsongi.electrozone.domain.ProductCategory;
 import me.yangsongi.electrozone.dto.HomeViewResponse;
 import me.yangsongi.electrozone.service.ProductService;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class HomeController {
         model.addAttribute("top6LatestProducts", top6LatestProducts);
 
         // CPU 항목의 인기 상품 12개를 가져와 모델에 저장합니다.
-        List<HomeViewResponse> top12PopularProducts = productService.getTop12PopularProducts(Category.valueOf("CPU")).stream()
+        List<HomeViewResponse> top12PopularProducts = productService.getTop12PopularProducts(ProductCategory.valueOf("CPU")).stream()
                 .map(HomeViewResponse::new)
                 .toList();
         model.addAttribute("top12PopularProducts", top12PopularProducts);
@@ -40,7 +40,7 @@ public class HomeController {
     @ResponseBody
     public ResponseEntity<List<HomeViewResponse>> getProductByCategory(@RequestParam("category")String category) {
         // 카테고리 항목의 인기 상품 12개를 가져와 모델에 저장합니다.
-        List<HomeViewResponse> top12PopularProducts = productService.getTop12PopularProducts(Category.valueOf(category)).stream()
+        List<HomeViewResponse> top12PopularProducts = productService.getTop12PopularProducts(ProductCategory.valueOf(category)).stream()
                 .map(HomeViewResponse::new)
                 .toList();
 

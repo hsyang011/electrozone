@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum Category {
+public enum ProductCategory {
 
     CPU("cpu"),
     MAINBOARD("mainboard"),

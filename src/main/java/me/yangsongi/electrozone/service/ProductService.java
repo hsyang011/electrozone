@@ -3,7 +3,7 @@ package me.yangsongi.electrozone.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import me.yangsongi.electrozone.domain.Category;
+import me.yangsongi.electrozone.domain.ProductCategory;
 import me.yangsongi.electrozone.domain.Product;
 import me.yangsongi.electrozone.domain.Review;
 import me.yangsongi.electrozone.domain.User;
@@ -45,15 +45,15 @@ public class ProductService {
             // 파일명에서 카테고리 추출 (파일명에서 .json 확장자를 제외한 부분)
             String categoryName = jsonFile.getName().replace(".json", "").toUpperCase();
             // Category enum 값으로 변환 (예외처리)
-            Category category = Optional.of(Category.valueOf(categoryName))
+            ProductCategory productCategory = Optional.of(ProductCategory.valueOf(categoryName))
                     .orElseThrow(() -> new IllegalArgumentException("Invalid category found in file name: " + categoryName));
             List<AddProductRequest> products = objectMapper.readValue(jsonFile, new TypeReference<>() {});
-            products.forEach(product -> saveOrUpdateProduct(product, category));
+            products.forEach(product -> saveOrUpdateProduct(product, productCategory));
         }
     }
 
     // 상품 id가 이미 존재하면 업데이트, 없으면 새로 생성합니다.
-    private void saveOrUpdateProduct(AddProductRequest request, Category category) {
+    private void saveOrUpdateProduct(AddProductRequest request, ProductCategory productCategory) {
         // registration_date를 String에서 LocalDateTime으로 변환
         LocalDateTime registeredAt = parseRegistrationDate(request.registeredAt());
 
@@ -71,7 +71,7 @@ public class ProductService {
                         .imageUrl(request.imageUrl())
                         .stock(100) // 기본 재고 값
                         .registeredAt(registeredAt)
-                        .category(category)
+                        .productCategory(productCategory)
                         .build();
                 productRepository.save(newProduct);
             }
@@ -110,8 +110,8 @@ public class ProductService {
     }
 
     // 인기상품 6개를 가져옵니다.
-    public List<Product> getTop12PopularProducts(Category category) {
-        return productRepository.findTop12ByCategory(category);
+    public List<Product> getTop12PopularProducts(ProductCategory productCategory) {
+        return productRepository.findTop12ByProductCategory(productCategory);
     }
 
     public void addReview(Long productId, AddReviewRequest request, String email) {

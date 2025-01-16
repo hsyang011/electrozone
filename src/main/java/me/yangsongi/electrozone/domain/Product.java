@@ -44,7 +44,7 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
-    private Category category;
+    private ProductCategory productCategory;
 
     @CreatedDate
     @Column(name = "created_at")

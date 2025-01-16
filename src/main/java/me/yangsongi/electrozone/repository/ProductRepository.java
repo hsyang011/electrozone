@@ -1,6 +1,6 @@
 package me.yangsongi.electrozone.repository;
 
-import me.yangsongi.electrozone.domain.Category;
+import me.yangsongi.electrozone.domain.ProductCategory;
 import me.yangsongi.electrozone.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,6 +10,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findTop6ByOrderByRegisteredAtDesc();
 
-    List<Product> findTop12ByCategory(Category category);
+    List<Product> findTop12ByProductCategory(ProductCategory productCategory);
 
 }
