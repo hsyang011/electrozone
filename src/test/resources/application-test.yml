@@ -7,8 +7,9 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop  # 테스트마다 테이블 생성 후 제거
-    database-platform: org.hibernate.dialect.H2Dialect
+      ddl-auto: update
+    #      ddl-auto: create-drop  # 테스트마다 테이블 생성 후 제거
+    database-platform: org.hibernate.dialect.MySQL8Dialect
 
   h2:
     console:
