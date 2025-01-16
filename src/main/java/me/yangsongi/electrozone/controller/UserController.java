@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import me.yangsongi.electrozone.domain.Order;
 import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.dto.AddUserRequest;
 import me.yangsongi.electrozone.dto.MyPageViewResponse;
@@ -15,23 +14,45 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController
-public class UserApiController {
+@Controller
+public class UserController {
     
     private final UserService userService;
     private final OrderService orderService;
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/join")
+    public String signup() {
+        return "join";
+    }
+
+    @GetMapping("/find-user")
+    public String findUser() {
+        return "find-user";
+    }
+
+    @GetMapping("/mypage")
+    public String mypage() {
+        return "mypage";
+    }
+
     @PostMapping("/join")
+    @ResponseBody
     public ResponseEntity<?> signup(@Valid AddUserRequest request, BindingResult bindingResult) {
         // 유효성 검사 오류가 있는 경우 처리
         if (bindingResult.hasErrors()) {
@@ -51,6 +72,7 @@ public class UserApiController {
 
     // 로그아웃 처리
     @GetMapping("/logout")
+    @ResponseBody
     public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
 
@@ -58,6 +80,7 @@ public class UserApiController {
     }
 
     @GetMapping("/api/mypage")
+    @ResponseBody
     public ResponseEntity<MyPageViewResponse> getAllOrders(Principal principal) {
         User user = userService.findByEmail(principal.getName());
 

@@ -9,19 +9,26 @@ import me.yangsongi.electrozone.dto.OrderStatusResponse;
 import me.yangsongi.electrozone.service.CartService;
 import me.yangsongi.electrozone.service.OrderService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController
-public class OrderApiController {
+@Controller
+public class OrderController {
 
     private final CartService cartService;
     private final OrderService orderService;
 
+    @GetMapping("/checkout")
+    public String order() {
+        return "checkout";
+    }
+
     @PostMapping("/api/checkout")
+    @ResponseBody
     public ResponseEntity<OrderProcessResponse> orderProcess(@RequestBody OrderProcessRequest request, Principal principal) {
         try {
             // 사용자 정보를 기반으로 주문 생성
@@ -45,6 +52,7 @@ public class OrderApiController {
 
     // 주문 취소
     @PostMapping("/api/order/{orderId}/cancel")
+    @ResponseBody
     public ResponseEntity<OrderStatusResponse> cancelOrder(@PathVariable("orderId") Long orderId, Principal principal) {
         Order order = orderService.cancelOrder(orderId);
 
@@ -53,6 +61,7 @@ public class OrderApiController {
 
     // 반품 처리
     @PostMapping("/api/order/{orderId}/return")
+    @ResponseBody
     public ResponseEntity<OrderStatusResponse> returnOrder(@PathVariable("orderId") Long orderId, Principal principal) {
         Order order = orderService.requestReturnOrder(orderId);
 

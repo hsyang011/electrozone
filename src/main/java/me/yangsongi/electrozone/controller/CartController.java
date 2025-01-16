@@ -9,18 +9,25 @@ import me.yangsongi.electrozone.dto.UpdateCartItemRequest;
 import me.yangsongi.electrozone.service.CartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController
-public class CartApiController {
+@Controller
+public class CartController {
 
     private final CartService cartService;
 
+    @GetMapping("/cart")
+    public String cart() {
+        return "cart";
+    }
+
     @PostMapping("/api/cart")
+    @ResponseBody
     public ResponseEntity<AddToCartResponse> addToCart(@RequestBody AddToCartRequest request, Principal principal) {
         CartItem cartItem = cartService.addToCart(request, principal.getName());
 
@@ -30,6 +37,7 @@ public class CartApiController {
     }
 
     @GetMapping("/api/cart")
+    @ResponseBody
     public ResponseEntity<List<CartViewResponse>> getCartItems(Principal principal) {
         List<CartViewResponse> cartItems = cartService.getCartItems(principal.getName()).stream()
                 .map(CartViewResponse::new)
@@ -39,6 +47,7 @@ public class CartApiController {
     }
 
     @PutMapping("/api/cart/{cartItemId}")
+    @ResponseBody
     public ResponseEntity<Void> updateCartItem(@PathVariable("cartItemId") Long cartItemId, @RequestBody UpdateCartItemRequest request) {
         cartService.updateCartItem(cartItemId, request);
 
@@ -46,6 +55,7 @@ public class CartApiController {
     }
 
     @DeleteMapping("/api/cart/{cartItemId}")
+    @ResponseBody
     public ResponseEntity<Void> deleteCartItem(@PathVariable("cartItemId") Long cartItemId) {
         cartService.deleteCartItem(cartItemId);
 

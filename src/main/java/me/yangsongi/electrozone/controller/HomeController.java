@@ -4,15 +4,18 @@ import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.domain.Category;
 import me.yangsongi.electrozone.dto.HomeViewResponse;
 import me.yangsongi.electrozone.service.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
-public class HomeViewController {
+public class HomeController {
 
     private final ProductService productService;
 
@@ -31,6 +34,17 @@ public class HomeViewController {
         model.addAttribute("top12PopularProducts", top12PopularProducts);
 
         return "index";
+    }
+
+    @GetMapping("/api/home")
+    @ResponseBody
+    public ResponseEntity<List<HomeViewResponse>> getProductByCategory(@RequestParam("category")String category) {
+        // 카테고리 항목의 인기 상품 12개를 가져와 모델에 저장합니다.
+        List<HomeViewResponse> top12PopularProducts = productService.getTop12PopularProducts(Category.valueOf(category)).stream()
+                .map(HomeViewResponse::new)
+                .toList();
+
+        return ResponseEntity.ok().body(top12PopularProducts);
     }
 
 }

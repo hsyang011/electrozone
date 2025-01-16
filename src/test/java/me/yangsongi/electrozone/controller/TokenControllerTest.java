@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")  // application-test.yml 활성화
-class TokenApiControllerTest {
+class TokenControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;
