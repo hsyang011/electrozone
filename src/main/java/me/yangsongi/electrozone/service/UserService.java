@@ -5,6 +5,9 @@ import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.domain.UserRole;
 import me.yangsongi.electrozone.dto.AddUserRequest;
 import me.yangsongi.electrozone.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +15,16 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+    // 사용자 이름(email)으로 사용자의 정보를 가져오는 메소드
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+    }
 
     public Long save(AddUserRequest request) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

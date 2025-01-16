@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.config.jwt.TokenProvider;
 import me.yangsongi.electrozone.domain.RefreshToken;
+import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.repository.RefreshTokenRepository;
 import me.yangsongi.electrozone.util.CookieUtil;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,19 @@ public class RefreshTokenService {
     public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
     private final RefreshTokenRepository refreshTokenRepository;
     private final TokenProvider tokenProvider;
+    private final UserService userService;
+
+    public String createNewAccessToken(String refreshToken) {
+        // 토큰 유효성 검사에 실패하면 예외 발생
+        if (!tokenProvider.validToken(refreshToken)) {
+            throw new IllegalStateException("Unexpected token");
+        }
+
+        Long userId = findByRefreshToken(refreshToken).getUserId();
+        User user = userService.findById(userId);
+
+        return tokenProvider.generateToken(user, Duration.ofHours(2));
+    }
 
     public RefreshToken findByRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
