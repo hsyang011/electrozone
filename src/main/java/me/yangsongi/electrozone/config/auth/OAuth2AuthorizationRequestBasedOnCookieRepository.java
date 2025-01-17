@@ -1,4 +1,4 @@
-package me.yangsongi.electrozone.config.oauth;
+package me.yangsongi.electrozone.config.auth;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

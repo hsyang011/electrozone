@@ -1,4 +1,4 @@
-package me.yangsongi.electrozone.config;
+package me.yangsongi.electrozone.config.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

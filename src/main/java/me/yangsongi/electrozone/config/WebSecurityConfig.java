@@ -2,10 +2,12 @@ package me.yangsongi.electrozone.config;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.yangsongi.electrozone.config.auth.FormSuccessHandler;
+import me.yangsongi.electrozone.config.jwt.TokenAuthenticationFilter;
 import me.yangsongi.electrozone.config.jwt.TokenProvider;
-import me.yangsongi.electrozone.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
-import me.yangsongi.electrozone.config.oauth.OAuth2SuccessHandler;
-import me.yangsongi.electrozone.config.oauth.OAuth2UserCustomService;
+import me.yangsongi.electrozone.config.auth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import me.yangsongi.electrozone.config.auth.OAuth2SuccessHandler;
+import me.yangsongi.electrozone.config.auth.OAuth2UserCustomService;
 import me.yangsongi.electrozone.service.RefreshTokenService;
 import me.yangsongi.electrozone.service.UserService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;

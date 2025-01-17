@@ -1,4 +1,4 @@
-package me.yangsongi.electrozone.config;
+package me.yangsongi.electrozone.config.auth;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

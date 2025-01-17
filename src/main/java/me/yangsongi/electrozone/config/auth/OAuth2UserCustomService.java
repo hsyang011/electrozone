@@ -1,4 +1,4 @@
-package me.yangsongi.electrozone.config.oauth;
+package me.yangsongi.electrozone.config.auth;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
