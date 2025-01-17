@@ -2,10 +2,13 @@ spring:
   application:
     name: electrozone
 
+  config:
+    import: optional:file:.env[.properties]
+
   datasource:
-    url: jdbc:mysql://awseb-e-gqrqrnsj2q-stack-awsebrdsdatabase-hlgrbijrv6ea.cpgy02uoscck.ap-northeast-2.rds.amazonaws.com/electrozone
-    username: ebroot
-    password: electro011
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -22,25 +25,21 @@ spring:
       client:
         registration:
           google:
-            client-id: 135444853870-6cuvtegops10jnkm4hkp3qir4sev1pct.apps.googleusercontent.com
-            client-secret: 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
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
             client-authentication-method: client_secret_post
             client-name: google
             authorization-grant-type: authorization_code
-            redirect-uri: "http://electrozone-env.eba-mn6ctxyx.ap-northeast-2.elasticbeanstalk.com/login/oauth2/code/google"  # 구글의 리디렉트 URI
-            scope:
-              - email
-              - profile
+            redirect-uri: ${GOOGLE_REDIRECT_URI} # 구글의 리디렉트 URI
+            scope: ${GOOGLE_SCOPE}
           kakao:
-            client-id: 3a2446be0a885b4949b4e1477ccadd81 # 앱키 -> REST API 키
-            client-secret: 6KJYm57fnZEnqvRVJemDxE8jYqZL36yT # 카카오 로그인 -> 보안 -> Client Secret 코드
+            client-id: ${KAKAO_CLIENT_ID} # 앱키 -> REST API 키
+            client-secret: ${KAKAO_CLIENT_SECRET} # 카카오 로그인 -> 보안 -> Client Secret 코드
             client-authentication-method: client_secret_post
             client-name: kakao
             authorization-grant-type: authorization_code
-            redirect-uri: "http://electrozone-env.eba-mn6ctxyx.ap-northeast-2.elasticbeanstalk.com/login/oauth2/code/kakao" # yml 파일에서 {} 가 spring 특수문자로 인식되게 하기 위해 " " 사용
-            scope:
-              - profile_nickname
-              - account_email
+            redirect-uri: ${KAKAO_REDIRECT_URI} # yml 파일에서 {} 가 spring 특수문자로 인식되게 하기 위해 " " 사용
+            scope: ${KAKAO_SCOPE}
         provider:
           google:
             authorization-uri: https://accounts.google.com/o/oauth2/auth
@@ -55,7 +54,7 @@ spring:
 
 jwt:
   issuer: "ELECTROZONE"
-  secret_key: "QrOMzASZ3fnq1k1C640LB9u/GnBuacPXZ6mTWHC9hU02ig5q8z7DxZfhoZZBizU0qJFoPihyf0azLfFfgBGRmA=="
+  secret_key: ${JWT_SECRET_KEY}
 
 # 로그인 인증 정보 디버깅
 #logging:
