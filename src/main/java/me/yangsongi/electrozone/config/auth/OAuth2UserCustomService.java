@@ -44,7 +44,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         Map<String, Object> attributes = oAuth2User.getAttributes();
         JsonNode jsonNode = new ObjectMapper().convertValue(attributes, JsonNode.class);
 
-        String email = switch(provider) {
+        String email = switch (provider) {
             case "google" -> jsonNode.get("email").asText();
             case "kakao" -> jsonNode.get("kakao_account").get("email").asText();
             default -> throw new IllegalArgumentException("Unknown provider: " + provider); // 기본값 처리

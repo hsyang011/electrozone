@@ -23,7 +23,7 @@ public class OrderService {
     public boolean payment(String paymentMethod, int totalPrice) {
         // 결제 처리 로직 (PG사 API 통합 등)
         // 예시로 카드 결제 방식만 처리하는 부분
-        if ("kakao-pay".equals(paymentMethod)) {
+        if ("kakaopay".equals(paymentMethod)) {
             // 카드 결제 처리 로직
             return true; // 성공 시 true 반환
         }

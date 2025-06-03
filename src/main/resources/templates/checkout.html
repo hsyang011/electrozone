@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/checkout.css">
     <link rel="stylesheet" href="/css/form.css">
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
 <div class="container">
@@ -45,9 +49,9 @@
 
             <h3>결제 방법</h3>
             <select name="payment-method" id="payment-method">
-                <option value="kakao-pay">카카오 페이</option>
-                <option value="naver-pay">네이버 페이</option>
-                <option value="credit-card">신용카드</option>
+                <option value="카카오페이">카카오페이</option>
+                <option value="토스페이">토스페이</option>
+                <option value="신용카드">신용카드</option>
             </select>
 
             <button class="checkout-btn" onclick="checkout()">결제하기</button>
