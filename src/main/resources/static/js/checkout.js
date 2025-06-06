@@ -74,7 +74,7 @@ function checkout() {
         pg: pg,
         pay_method: 'card',
         merchant_uid: 'merchant_' + new Date().getTime(),   // 주문번호
-        name: document.getElementsByClassName('order-item-name')[0] + ' 외',
+        name: document.getElementsByClassName('order-item-name')[0].value + ' 외',
         amount: payment+3000,                         // 숫자 타입
         buyer_email: form.recipient.value,
         buyer_name: form.recipient.value,
