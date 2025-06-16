@@ -2,7 +2,7 @@
     <div class="logo">
         <a href="/"><h1>ELECTROZONE</h1></a>
     </div>
-    <form class="search-bar" action="/search" method="GET">
+    <form class="search-bar" action="/search" method="GET" onsubmit="getProductsByKeyword(event)">
         <input type="text" id="keyword" name="keyword" placeholder="검색어를 입력해주세요" required>
         <button type="submit">검색</button>
     </form>

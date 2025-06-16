@@ -21,8 +21,8 @@
 
     <!-- 페이지별 콘텐츠 -->
     <section>
-        <h2>최신 상품</h2>
-        <div class="product-list">
+        <h2 id="search-category">최신 상품</h2>
+        <div class="product-list" id="search-list">
             <div th:each="product : ${top6LatestProducts}" class="product-item" th:onclick="|location.href='@{/products/{id}(id=${product.productId})}'|">
                 <img th:src="@{${product.imageUrl}}" alt="상품">
                 <p th:text="${product.name}"></p>
