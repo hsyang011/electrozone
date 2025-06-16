@@ -9,9 +9,12 @@ import me.yangsongi.electrozone.domain.Review;
 import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.dto.AddProductRequest;
 import me.yangsongi.electrozone.dto.AddReviewRequest;
+import me.yangsongi.electrozone.dto.HomeViewResponse;
 import me.yangsongi.electrozone.repository.ProductRepository;
 import me.yangsongi.electrozone.repository.ReviewRepository;
 import me.yangsongi.electrozone.repository.UserRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -127,6 +130,12 @@ public class ProductService {
     // 상품에 대한 리뷰를 가져옵니다.
     public List<Review> findByProduct(Product product) {
         return reviewRepository.findByProduct(product);
+    }
+
+    // 키워드로 검색한 상품 12개를 가져옵니다.
+    public List<Product> getTop12ProductsByKeywords(String keyword) {
+        PageRequest pageRequest = PageRequest.of(0, 12, Sort.by("createdAt").descending());
+        return productRepository.findByNameContaining(keyword, pageRequest);
     }
 
 }

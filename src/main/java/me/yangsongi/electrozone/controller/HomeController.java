@@ -47,4 +47,14 @@ public class HomeController {
         return ResponseEntity.ok().body(top12PopularProducts);
     }
 
+    @GetMapping("/search")
+    @ResponseBody
+    public ResponseEntity<List<HomeViewResponse>> getProductByKeyword(@RequestParam("keyword")String keyword) {
+        List<HomeViewResponse> top12ProductsByKeywords = productService.getTop12ProductsByKeywords(keyword).stream()
+                .map(HomeViewResponse::new)
+                .toList();
+
+        return ResponseEntity.ok().body(top12ProductsByKeywords);
+    }
+
 }
