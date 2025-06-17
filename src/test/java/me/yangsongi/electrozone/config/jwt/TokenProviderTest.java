@@ -93,6 +93,7 @@ public class TokenProviderTest {
         // given
         String userEmail = "user@gmail.com";
         String token = JwtFactory.builder()
+                .claims(Map.of("userRole", "ROLE_USER"))
                 .subject(userEmail)
                 .build()
                 .createToken(jwtProperties);
