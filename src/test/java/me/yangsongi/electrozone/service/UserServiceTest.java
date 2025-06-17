@@ -58,7 +58,7 @@ public class UserServiceTest {
                 .nickname("testUser")
                 .password("password")
                 .phone("010-1234-5678")
-                .userRole(UserRole.USER)
+                .userRole(UserRole.ROLE_USER)
                 .build());
 
         // when
