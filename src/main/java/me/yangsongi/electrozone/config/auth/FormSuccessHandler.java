@@ -8,7 +8,10 @@ import me.yangsongi.electrozone.config.jwt.TokenProvider;
 import me.yangsongi.electrozone.domain.User;
 import me.yangsongi.electrozone.service.RefreshTokenService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -38,6 +41,18 @@ public class FormSuccessHandler implements AuthenticationSuccessHandler {
 
         // 액세스 토큰 생성 -> 패스에 액세스 토큰 추가
         String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_DURATION);
+
+        // 관리자 권한일 경우에만 세션에 저장
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+        if (isAdmin) {
+            SecurityContext context = SecurityContextHolder.createEmptyContext();
+            context.setAuthentication(authentication);
+            request.getSession(true).setAttribute(
+                    HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                    context
+            );
+        }
 
         response.setHeader(AUTHORIZATION_HEADER, accessToken);
         response.setStatus(HttpServletResponse.SC_OK);

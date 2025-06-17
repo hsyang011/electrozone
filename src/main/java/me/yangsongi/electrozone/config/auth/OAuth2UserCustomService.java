@@ -66,7 +66,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
                             .email(email)
                             .name(name)
                             .nickname(name)
-                            .userRole(UserRole.USER)
+                            .userRole(UserRole.ROLE_USER)
                             .password(generateRandomPassword());
                     addProviderIdToBuilder(userBuilder, provider, attributes);
                     return userBuilder.build();

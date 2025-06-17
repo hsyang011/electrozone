@@ -54,7 +54,7 @@ public class UserService implements UserDetailsService {
         }
 
         // 사용자 ROLE 확인 (관리자 기능은 추후에 추가합니다.)
-        UserRole userRole = UserRole.USER;
+        UserRole userRole = UserRole.ROLE_USER;
 
         return userRepository.save(User.builder()
                 .email(email)

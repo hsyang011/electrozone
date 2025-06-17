@@ -4,18 +4,33 @@
     <a href="javascript:void(0)" id="logout-link" onclick="logout();">로그아웃</a>
     <a href="/mypage" id="mypage">마이페이지</a>
     <a href="/cart" id="cart">장바구니</a>
+    <a href="/admin" id="admin-link" style="display:none;">관리자</a>  <!-- 관리자 링크 추가 -->
 </div>
 <script src="/js/request.js"></script>
 <script src="/js/auth.js"></script>
 <script>
-    // JWT 토큰이 localStorage에 존재하는지 확인
-    // 로그인 여부에 따라 링크 표시 변경
-    if (localStorage.getItem('access_token')) {
+    function parseJwt (token) {
+        try {
+            return JSON.parse(atob(token.split('.')[1]));
+        } catch(e) {
+            return null;
+        }
+    }
+
+    const token = localStorage.getItem('access_token');
+
+    if (token) {
+        const payload = parseJwt(token);
+
         document.getElementById('login-link').style.display = 'none';
         document.getElementById('join-link').style.display = 'none';
         document.getElementById('logout-link').style.display = 'inline';
         document.getElementById('mypage').style.display = 'inline';
         document.getElementById('cart').style.display = 'inline';
+
+        if (payload && payload.userRole && payload.userRole.includes('ROLE_ADMIN')) {
+            document.getElementById('admin-link').style.display = 'inline';
+        }
     } else {
         document.getElementById('login-link').style.display = 'inline';
         document.getElementById('join-link').style.display = 'inline';

@@ -28,6 +28,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         // 가져온 토큰이 유효한지 확인하고, 유효한 때는 인증 정보 설정
         if (tokenProvider.validToken(token)) {
             Authentication authentication = tokenProvider.getAuthentication(token);
+            System.out.println("인증됨: " + authentication.getName());
+            System.out.println("권한: " + authentication.getAuthorities()); // ← 여기에 ROLE_ADMIN 나와야 함
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 

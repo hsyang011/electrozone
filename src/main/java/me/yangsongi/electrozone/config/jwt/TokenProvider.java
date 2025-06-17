@@ -40,6 +40,7 @@ public class TokenProvider {
                 .setExpiration(expiry) // 내용 exp : expiry 멤버변수 값
                 .setSubject(user.getEmail()) // 내용 sub : 유저의 이메일
                 .claim("userId", user.getUserId()) // 클레임 id : 유저 ID
+                .claim("userRole", user.getUserRole()) // 유저의 권한
                 // 서명 : 비밀값과 함께 해시값을 HS256 방식으로 암호화
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
@@ -61,7 +62,8 @@ public class TokenProvider {
     // 토큰 기반으로 인증 정보를 가져오는 메소드
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
-        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        String userRole = claims.get("userRole", String.class);
+        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(userRole));
 
         return new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(claims.getSubject(), "", authorities), token, authorities);
     }
