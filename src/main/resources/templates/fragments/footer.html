@@ -1,4 +1,22 @@
 <footer>
+    <!-- 채팅 버튼 -->
+    <div id="chat-button" onclick="toggleChatPopup()">💬 채팅상담</div>
+
+    <!-- 채팅 팝업창 -->
+    <div id="chat-popup" class="chat-popup hidden">
+        <div class="chat-header">
+            <span>관리자와의 채팅</span>
+            <button onclick="toggleChatPopup()">X</button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <!-- 메시지 출력 영역 -->
+        </div>
+        <form id="chat-form" onsubmit="sendMessage(event)">
+            <input type="text" id="chat-input" placeholder="메시지를 입력하세요..." autocomplete="off" />
+            <button type="submit">전송</button>
+        </form>
+    </div>
+
     <div class="footer-content">
         <p>© 2024 ELECTROZONE 플랫폼</p>
     </div>
