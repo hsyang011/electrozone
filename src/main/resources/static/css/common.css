@@ -244,6 +244,7 @@ footer .footer-content p {
 .message.admin {
     background-color: #f1f1f1;
     align-self: flex-start;
+    color: black;
 }
 
 #chat-form {

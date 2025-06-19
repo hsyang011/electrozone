@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import me.yangsongi.electrozone.domain.ChatMessage;
 import me.yangsongi.electrozone.domain.ChatRoom;
 import me.yangsongi.electrozone.domain.User;
+import me.yangsongi.electrozone.dto.ChatMessageResponse;
+import me.yangsongi.electrozone.dto.ChatRoomResponse;
 import me.yangsongi.electrozone.repository.ChatMessageRepository;
 import me.yangsongi.electrozone.repository.ChatRoomRepository;
 import me.yangsongi.electrozone.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +41,22 @@ public class ChatService {
     // 메시지 리스트 조회
     public List<ChatMessage> getMessages(Long roomId) {
         return chatMessageRepository.findByChatRoom_ChatRoomIdOrderByCreatedAtAsc(roomId);
+    }
+
+    // 모든 채팅방 목록 조회 (관리자용)
+    public List<ChatRoomResponse> getAllChatRooms() {
+        return chatRoomRepository.findAll()
+                .stream()
+                .map(room -> new ChatRoomResponse(room.getChatRoomId()))
+                .collect(Collectors.toList());
+    }
+
+    // 특정 채팅방 메시지 목록 조회 (관리자용)
+    public List<ChatMessageResponse> getMessagesByRoomId(Long roomId) {
+        return chatMessageRepository.findByChatRoom_ChatRoomIdOrderByCreatedAtAsc(roomId)
+                .stream()
+                .map(ChatMessageResponse::new)
+                .collect(Collectors.toList());
     }
 
 }

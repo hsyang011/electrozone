@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ELECTROZONE 플랫폼</title>
-  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="/css/common.css" />
-  <link rel="stylesheet" href="/css/home.css" />
-  <link rel="stylesheet" href="/css/admin.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 채팅 대시보드 | ELECTROZONE</title>
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
 <div class="container">
@@ -17,65 +16,29 @@
   <!-- 헤더 영역 -->
   <header th:replace="~{fragments/header.html}"></header>
 
-  <!-- 관리자 대시보드 메인 콘텐츠 -->
-  <section id="admin-dashboard">
-    <h2>ELECTROZONE 관리자 대시보드</h2>
+  <!-- 광고 배너 -->
+  <div th:replace="~{fragments/ad-banner.html}"></div>
 
-    <!-- 검색창 -->
-    <div id="admin-search">
-      <input type="text" placeholder="관리자 검색어 입력" />
-      <button type="button">검색</button>
-    </div>
-
-    <!-- 상단 실시간 채팅방 목록과 방문자 통계 -->
-    <div id="dashboard-main">
-      <div id="chat-room-list" class="dashboard-box">
-        <h3>실시간 채팅방 목록 & 상태</h3>
-        <ul>
-          <li>채팅방 1 - 접속자 3명 - 최근 메시지: 안녕하세요!</li>
-          <li>채팅방 2 - 접속자 1명 - 최근 메시지: 주문 문의 드립니다.</li>
-          <li>채팅방 3 - 접속자 5명 - 최근 메시지: 재고 언제 들어오나요?</li>
-          <!-- 예시 데이터 -->
-        </ul>
+  <!-- 페이지별 콘텐츠 -->
+  <section>
+    <h2>실시간 채팅 관리</h2>
+    <div class="admin-chat-container">
+      <div class="chat-room-list">
+        <h3>채팅 목록</h3>
+        <ul id="room-list"></ul>
       </div>
-      <div id="visitor-stats" class="dashboard-box">
-        <h3>오늘 방문자 수</h3>
-        <p>신규 가입자 수: 15명</p>
-        <p>총 접속자 수: 120명</p>
-      </div>
-    </div>
-
-    <!-- 선택된 채팅방 메시지 실시간 모니터링 -->
-    <div id="chat-monitoring" class="dashboard-box">
-      <h3>선택된 채팅방 메시지 실시간 모니터링</h3>
-      <ul>
-        <li>사용자1: 안녕하세요!<button class="action-btn">신고</button><button class="action-btn">차단</button></li>
-        <li>관리자: 문의 주셔서 감사합니다.<button class="action-btn">신고</button><button class="action-btn">차단</button></li>
-        <li>사용자2: 주문이 언제 배송되나요?<button class="action-btn">신고</button><button class="action-btn">차단</button></li>
-        <!-- 예시 메시지 -->
-      </ul>
-    </div>
-
-    <!-- 하단 사용자 관리, 통계 & 알림 -->
-    <div id="bottom-section">
-      <div id="user-management" class="dashboard-box">
-        <h3>사용자 관리</h3>
-        <ul>
-          <li>사용자A <button class="action-btn">차단</button></li>
-          <li>사용자B <button class="action-btn">차단</button></li>
-          <li>사용자C <button class="action-btn">차단 해제</button></li>
-          <!-- 예시 사용자 -->
-        </ul>
-      </div>
-      <div id="stats-notifications" class="dashboard-box">
-        <h3>통계 & 알림</h3>
-        <p>채팅 이용 통계: 일 평균 200건</p>
-        <p>시스템 알림: 서버 점검 예정 (내일 02:00 ~ 04:00)</p>
+      <div class="chat-room-window">
+        <div class="chat-header">
+          <span id="current-room-name">채팅방</span>
+        </div>
+        <div id="chat-messages" class="chat-messages"></div>
+        <form id="chat-form" onsubmit="sendAdminMessage(event)">
+          <input id="chat-input" placeholder="메시지를 입력하세요..." autocomplete="off" />
+          <button type="submit">전송</button>
+        </form>
       </div>
     </div>
   </section>
-
-  <!-- 기존의 다른 섹션들은 삭제하거나 주석 처리 해주세요 -->
 
   <!-- 푸터 영역 -->
   <footer th:replace="~{fragments/footer.html}"></footer>
@@ -84,6 +47,6 @@
 <!-- CDN으로 SockJS, Stomp.js 추가 -->
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
-<script src="/js/home.js"></script>
+<script src="/js/admin.js"></script>
 </body>
 </html>
