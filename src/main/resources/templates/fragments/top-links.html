@@ -9,33 +9,55 @@
 <script src="/js/request.js"></script>
 <script src="/js/auth.js"></script>
 <script>
-    function parseJwt (token) {
+    function parseJwt(token) {
         try {
             return JSON.parse(atob(token.split('.')[1]));
-        } catch(e) {
+        } catch (e) {
             return null;
         }
     }
 
     const token = localStorage.getItem('access_token');
+    const loginLink = document.getElementById('login-link');
+    const joinLink = document.getElementById('join-link');
+    const logoutLink = document.getElementById('logout-link');
+    const mypageLink = document.getElementById('mypage');
+    const cartLink = document.getElementById('cart');
+    const adminLink = document.getElementById('admin-link');
+
+    function showGuestUI() {
+        loginLink.style.display = 'inline';
+        joinLink.style.display = 'inline';
+        logoutLink.style.display = 'none';
+        mypageLink.style.display = 'none';
+        cartLink.style.display = 'none';
+        adminLink.style.display = 'none';
+    }
+
+    function showUserUI(payload) {
+        loginLink.style.display = 'none';
+        joinLink.style.display = 'none';
+        logoutLink.style.display = 'inline';
+        mypageLink.style.display = 'inline';
+        cartLink.style.display = 'inline';
+
+        if (payload.userRole && payload.userRole.includes('ROLE_ADMIN')) {
+            adminLink.style.display = 'inline';
+        }
+    }
 
     if (token) {
         const payload = parseJwt(token);
+        const now = Math.floor(Date.now() / 1000); // 현재 시간 (초 단위)
 
-        document.getElementById('login-link').style.display = 'none';
-        document.getElementById('join-link').style.display = 'none';
-        document.getElementById('logout-link').style.display = 'inline';
-        document.getElementById('mypage').style.display = 'inline';
-        document.getElementById('cart').style.display = 'inline';
-
-        if (payload && payload.userRole && payload.userRole.includes('ROLE_ADMIN')) {
-            document.getElementById('admin-link').style.display = 'inline';
+        if (!payload || !payload.exp || payload.exp < now) {
+            // 토큰 만료된 경우
+            localStorage.removeItem('access_token');
+            showGuestUI();
+        } else {
+            showUserUI(payload);
         }
     } else {
-        document.getElementById('login-link').style.display = 'inline';
-        document.getElementById('join-link').style.display = 'inline';
-        document.getElementById('logout-link').style.display = 'none';
-        document.getElementById('mypage').style.display = 'none';
-        document.getElementById('cart').style.display = 'none';
+        showGuestUI();
     }
 </script>
