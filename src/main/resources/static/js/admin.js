@@ -1,4 +1,3 @@
-let stompClient = null;
 let selectedRoomId = null;
 let currentSubscription = null;  // 구독 객체 저장용
 
