@@ -1,5 +1,5 @@
 let selectedRoomId = null;
-let currentSubscription = null;  // 구독 객체 저장용
+let currentSubscription = null;
 
 // 관리자 접속 시 WebSocket 연결
 function connectAdmin() {
@@ -8,43 +8,48 @@ function connectAdmin() {
 
     stompClient.connect(
         { Authorization: "Bearer " + localStorage.getItem("access_token") },
-        () => {
-            loadChatRooms();
-        },
-        (error) => {
-            console.error('STOMP 연결 실패:', error);
-            // 재연결 로직 필요 시 추가
-        }
+        onConnected,
+        onError
     );
 }
 
-// 채팅방 목록 API 호출 및 UI 렌더링
+// 연결 성공 시 채팅방 목록 로드
+function onConnected() {
+    loadChatRooms();
+}
+
+function onError(error) {
+    console.error('STOMP 연결 실패:', error);
+    // 필요 시 재연결 로직 구현 가능
+}
+
+// 채팅방 목록 조회
 function loadChatRooms() {
-    fetch('/api/admin/chat/rooms', {
-        headers: {
-            Authorization: "Bearer " + localStorage.getItem("access_token"),
-        }
-    })
-    .then(res => res.json())
-    .then(rooms => {
-        const listEl = document.getElementById('room-list');
-        listEl.innerHTML = '';
+    httpRequest(
+        'GET',
+        '/api/admin/chat/rooms',
+        null,
+        async (res) => {
+            const rooms = await res.json();
+            renderChatRoomList(rooms);
+            if (rooms.length > 0 && !selectedRoomId) {
+                selectRoom(rooms[0].roomId);
+            }
+        },
+        (err) => console.error('채팅방 목록 로드 실패:', err)
+    );
+}
 
-        rooms.forEach(room => {
-            const li = document.createElement('li');
-            li.textContent = `방 번호: ${room.roomId}`;
-            li.style.cursor = 'pointer';
-            li.onclick = () => selectRoom(room.roomId);
-            listEl.appendChild(li);
-        });
-
-        // 첫 방 자동 선택 (옵션)
-        if (rooms.length > 0 && !selectedRoomId) {
-            selectRoom(rooms[0].roomId);
-        }
-    })
-    .catch(err => {
-        console.error('채팅방 목록 로드 실패:', err);
+// 채팅방 목록 UI 렌더링
+function renderChatRoomList(rooms) {
+    const listEl = document.getElementById('room-list');
+    listEl.innerHTML = '';
+    rooms.forEach(room => {
+        const li = document.createElement('li');
+        li.textContent = `방 번호: ${room.roomId}`;
+        li.style.cursor = 'pointer';
+        li.onclick = () => selectRoom(room.roomId);
+        listEl.appendChild(li);
     });
 }
 
@@ -52,46 +57,54 @@ function loadChatRooms() {
 function selectRoom(roomId) {
     if (selectedRoomId === roomId) return;
 
-    // 이전 구독 해제
+    unsubscribeRoom();
+    selectedRoomId = roomId;
+    updateChatRoomUI(roomId);
+    subscribeRoom(roomId);
+    loadChatHistory(roomId);
+}
+
+// 이전 구독 해제
+function unsubscribeRoom() {
     if (currentSubscription) {
         currentSubscription.unsubscribe();
         currentSubscription = null;
     }
+}
 
-    selectedRoomId = roomId;
+// 채팅방 UI 초기화
+function updateChatRoomUI(roomId) {
     document.getElementById('current-room-name').textContent = `채팅방 ${roomId}`;
     document.getElementById('chat-messages').innerHTML = '';
+}
 
-    // 해당 방 구독
-    stompClient.subscribe(`/sub/chat/room/${roomId}`, (messageOutput) => {
+// 채팅방 구독
+function subscribeRoom(roomId) {
+    currentSubscription = stompClient.subscribe(`/sub/chat/room/${roomId}`, (messageOutput) => {
         const message = JSON.parse(messageOutput.body);
         const senderType = message.sender === 'admin' ? 'admin' : 'user';
         addMessageToChat(senderType, message.content);
     });
-
-    loadChatHistory(roomId);
 }
 
-// 이전 채팅 기록 불러오기
+// 채팅 기록 불러오기
 function loadChatHistory(roomId) {
-    fetch(`/api/chat/messages?roomId=${roomId}`, {
-        headers: {
-            Authorization: "Bearer " + localStorage.getItem("access_token"),
-        }
-    })
-    .then(res => res.json())
-    .then(messages => {
-        messages.forEach(msg => {
-            const senderType = msg.sender === 'admin' ? 'admin' : 'user';
-            addMessageToChat(senderType, msg.content);
-        });
-    })
-    .catch(err => {
-        console.error('채팅 기록 불러오기 실패:', err);
-    });
+    httpRequest(
+        'GET',
+        `/api/chat/messages?roomId=${roomId}`,
+        null,
+        async (res) => {
+            const messages = await res.json();
+            messages.forEach(msg => {
+                const senderType = msg.sender === 'admin' ? 'admin' : 'user';
+                addMessageToChat(senderType, msg.content);
+            });
+        },
+        (err) => console.error('채팅 기록 불러오기 실패:', err)
+    );
 }
 
-// 채팅 메시지 화면에 추가
+// 채팅 메시지 출력
 function addMessageToChat(sender, message) {
     const chatBox = document.getElementById('chat-messages');
     const msgDiv = document.createElement('div');
@@ -104,11 +117,10 @@ function addMessageToChat(sender, message) {
 // 메시지 전송
 function sendAdminMessage(event) {
     event.preventDefault();
-    if (!selectedRoomId || !stompClient) return;
-
     const input = document.getElementById('chat-input');
     const message = input.value.trim();
-    if (message === '') return;
+
+    if (!message || !selectedRoomId || !stompClient) return;
 
     const chatMessage = {
         roomId: selectedRoomId,
@@ -127,7 +139,7 @@ function sendAdminMessage(event) {
     input.value = '';
 }
 
-// 초기 연결 시도
+// 페이지 로딩 시 WebSocket 연결 시작
 window.onload = () => {
     connectAdmin();
 };
